@@ -10,8 +10,8 @@ const Index = () => {
     <Box
       sx={{
         width: '80%',
-        height: '300px',
-        border: 'solid 1px red',
+        height: ['300px'],
+        border: 'solid 1px',
         borderColor: 'muted',
         mx: ['auto'],
         mt: [5],
@@ -24,7 +24,11 @@ const Index = () => {
         units={{ x: 'unit', y: 'unit' }}
         padding={{ left: 50, bottom: 50, right: 0, top: 0 }}
         axisPadding={{ left: 0, right : 0, top: 0, bottom: 0 }}
-      ></Chart>
+      >
+        <Box as='line' x1={`${x(0)}`} x2={`${x(500)}`} y1={`${y(0)}`} y2={`${y(500)}`} sx={{stroke: 'primary', strokeWidth: 2, vectorEffect: 'non-scaling-stroke'}} />
+        <Box as='line' x1={`${x(500)}`} x2={`${x(500)+0.00001}`} y1={`${y(500)}`} y2={`${y(500)+0.00001}`} sx={{stroke: 'primary', strokeWidth: 13, strokeLinecap: 'round', vectorEffect: 'non-scaling-stroke'}} />
+        <Box as='line' x1={`${x(100)}`} x2={`${x(100)+0.00001}`} y1={`${y(500)}`} y2={`${y(500)+0.00001}`} sx={{stroke: 'primary', strokeWidth: 13, strokeLinecap: 'round', vectorEffect: 'non-scaling-stroke'}} />
+        </Chart>
     </Box>
   )
 }

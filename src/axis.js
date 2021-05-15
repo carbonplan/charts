@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Box } from 'theme-ui'
 
 const sx = {
@@ -38,11 +39,10 @@ const Axis = ({
     bottom: apb = 0 
   } = axisPadding
 
-
   const { x, y } = scales
 
   return (
-    <Box sx={{ width: '100%', height: '100%', position: 'relative' }}>
+    <Box sx={{ width: '100%', height: '100%', position: 'absolute' }}>
       <Box
         sx={{
           ...sx.axis,
@@ -75,6 +75,7 @@ const Axis = ({
           {ticks.y.map((d) => {
             return (
               <Box
+                key={d}
                 sx={{
                   ...sx.tick,
                   fill: 'primary',
@@ -102,6 +103,7 @@ const Axis = ({
           {ticks.x.map((d) => {
             return (
               <Box
+                key={d}
                 sx={{
                   ...sx.tick,
                   left: `${x(d)}%`,
@@ -119,4 +121,4 @@ const Axis = ({
   )
 }
 
-export default Axis
+export default memo(Axis)
