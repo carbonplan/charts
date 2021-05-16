@@ -23,11 +23,11 @@ There are _a lot_ of charting libraries for the web. Somehow, this one fills a n
 
 We designed `@carbonplan/charts` with a few goals in mind:
 
-- built for modern `react`  :arrow_upper_right: 
-- fully responsive  :left_right_arrow:
-- modular and composable  :recycle: 
-- easy to theme via `theme-ui`  :sparkles: 
-- plays great with `MDX`  :tada: 
+- built for modern `react` :arrow_upper_right:
+- fully responsive :left_right_arrow:
+- modular and composable :recycle:
+- easy to theme via `theme-ui` :sparkles:
+- plays great with `MDX` :tada:
 
 It's also super light weight, depending only on `react` and `theme-ui` and some `d3` utility packages. If there's interest we could probably factor out the `theme-ui` dependency so it's optional.
 
