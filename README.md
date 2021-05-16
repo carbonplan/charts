@@ -19,7 +19,7 @@
 [mit license]: https://badgen.net/badge/license/MIT/blue
 [npm version]: https://badgen.net/npm/v/@carbonplan/charts
 
-There are _a lot_ of charting libraries for the web. Somehow, this one fills a niche that we think still exists. If nothing else, we find it useful, and will be using it ourselves!
+There are _a lot_ of charting libraries for the web. Somehow, this one fills a niche that we think still exists. If nothing else, we find it useful, and will be using it ourselves! It's still super early in development, so expect lots of changes.
 
 We designed `@carbonplan/charts` with a few goals in mind:
 
