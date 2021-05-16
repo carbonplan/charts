@@ -19,7 +19,7 @@
 [mit license]: https://badgen.net/badge/license/MIT/blue
 [npm version]: https://badgen.net/npm/v/@carbonplan/charts
 
-There are _a lot_ of charting libraries. This one somehow fills a niche that we think still exists. If nothing else, we find it useful, and will be using it ourselves!
+There are _a lot_ of charting libraries for the web. Somehow, this one fills a niche that we think still exists. If nothing else, we find it useful, and will be using it ourselves!
 
 We designed `@carbonplan/charts` with a few goals in mind:
 - built for modern `react`
@@ -61,6 +61,11 @@ const ScatterChart = () => {
   )
 }
 ```
+
+This results in using the `light` and `dark` modes of [`@carbonplan/theme`](https://github.com/carbonplan/theme).
+
+<img width="419" alt="Screen Shot 2021-05-16 at 10 11 50 AM" src="https://user-images.githubusercontent.com/3387500/118406207-fed4a900-b62f-11eb-84a1-0f2b2d3311ef.png">
+<img width="437" alt="Screen Shot 2021-05-16 at 10 18 51 AM" src="https://user-images.githubusercontent.com/3387500/118406265-2297ef00-b630-11eb-99d4-d7eb16a0211b.png">
 
 Many more examples and documentation coming soon.
 
