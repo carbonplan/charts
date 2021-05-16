@@ -1,34 +1,43 @@
 {
   "name": "charts",
   "version": "1.0.0",
-  "description": "reusable web charts",
-  "main": "index.js",
+  "description": "themeable reusable responsive web charts",
+  "main": "dst/index.js",
+  "module": "dst/index.esm.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next -p 5001",
-    "build": "next build",
-    "start": "next start",
-    "format": "prettier --write '{src,pages}/**/*.js'"
+    "build": "microbundle --no-compress --jsx React.createElement -f modern,es,cjs --jsxFragment React.Fragment",
+    "format": "prettier --write 'src/**/*.js'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carbonplan/charts.git"
   },
+  "keywords": [
+    "carbonplan",
+    "charts",
+    "react",
+    "theme-ui"
+  ],
   "author": "freeman-lab",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/carbonplan/charts/issues"
   },
+  "files": [
+    "dst"
+  ],
   "homepage": "https://github.com/carbonplan/charts#readme",
-  "dependencies": {
-    "@carbonplan/components": "^7.6.2",
-    "@carbonplan/theme": "^5.0.0",
-    "d3-scale": "^3.3.0",
-    "next": "^10.2.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+  "peerDependencies": {
+    "react": "^16.14.0 || ^17.0.2",
+    "react-dom": "^16.14.0 || ^17.0.2",
+    "theme-ui": "^0.7.3"
   },
   "devDependencies": {
+    "microbundle": "^0.13.0",
     "prettier": "2.2.1"
+  },
+  "dependencies": {
+    "d3-scale": "^3.3.0",
+    "d3-shape": "^2.1.0"
   }
 }

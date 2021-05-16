@@ -1,0 +1,40 @@
+{
+  "name": "charts-demo",
+  "version": "1.0.0",
+  "description": "demo of @carbonplan/charts",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development next -p 4000",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write '*.js' '{pages,}/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbonplan/charts.git"
+  },
+  "keywords": [
+    "charts",
+    "theme-ui",
+    "svg",
+    "react"
+  ],
+  "author": "freeman-lab",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carbonplan/charts/issues"
+  },
+  "dependencies": {
+    "@carbonplan/components": "^7.6.2",
+    "@carbonplan/theme": "^5.0.0",
+    "d3-scale": "^3.3.0",
+    "d3-shape": "^2.1.0",
+    "next": "^10.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "prettier": "2.2.1"
+  },
+  "homepage": "https://github.com/carbonplan/charts#readme"
+}

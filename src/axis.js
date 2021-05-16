@@ -1,124 +1,75 @@
-import { memo } from 'react'
+import React from 'react'
 import { Box } from 'theme-ui'
+import { useChart } from './chart'
 
-const sx = {
+const styles = {
   axis: {
     position: 'absolute',
     borderStyle: 'solid',
     borderColor: 'secondary',
     borderWidth: '0px',
   },
-  tick: {
-    position: 'absolute',
-    fontSize: [1, 1, 1, 2],
-    fontFamily: 'mono',
-    letterSpacing: 'mono',
-    color: 'secondary',
-  },
 }
 
-const Axis = ({
-  scales,
-  ticks,
-  labels,
-  units,
-  padding,
-  axisPadding,
-}) => {
-  const { 
-    left : pl = 20, 
-    right : pr = 0, 
-    top : pt = 0, 
-    bottom : pb = 20
-  } = padding
-  
-  const { 
-    left: apl = 0, 
-    right: apr = 0, 
-    top: apt = 0, 
-    bottom: apb = 0 
-  } = axisPadding
-
-  const { x, y } = scales
+const Axis = ({ left, right, top, bottom, sx }) => {
+  const { x, y, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
   return (
-    <Box sx={{ width: '100%', height: '100%', position: 'absolute' }}>
-      <Box
-        sx={{
-          ...sx.axis,
-          borderRightWidth: '1px',
-          height: `calc(100% - ${apt + pt + pb + apb}px)`,
-          left: `${pl}px`,
-          top: `${apt + pt}px`,
-          width: '1px',
-        }}
-      />
-      <Box
-        sx={{
-          ...sx.axis,
-          borderTopWidth: '1px',
-          width: `calc(100% - ${apl + pl + pr + apr}px)`,
-          bottom: `${pb}px`,
-          left: `${apl + pl}px`,
-          height: '1px',
-        }}
-      />
-      {ticks && ticks.y && (
+    <>
+      {left && (
         <Box
           sx={{
-            position: 'absolute',
-            top: `${apt + pt}px`,
+            ...styles.axis,
+            borderRightWidth: '1px',
             height: `calc(100% - ${apt + pt + pb + apb}px)`,
-            width: `${pl}px`,
+            left: `${pl}px`,
+            top: `${apt + pt}px`,
+            width: '1px',
+            ...sx,
           }}
-        >
-          {ticks.y.map((d) => {
-            return (
-              <Box
-                key={d}
-                sx={{
-                  ...sx.tick,
-                  fill: 'primary',
-                  top: `${y(d)}%`,
-                  mt: '-9px',
-                  right: '5px',
-                }}
-              >
-                {d}
-              </Box>
-            )
-          })}
-        </Box>
+        />
       )}
-      {ticks && ticks.x && (
+      {right && (
         <Box
           sx={{
-            position: 'absolute',
-            height: `${pb}px`,
-            width: `calc(100% - ${apl + pl + pr + apr}px)`,
-            left: `${apl + pl}px`,
-            bottom: '0px',
+            ...styles.axis,
+            borderRightWidth: '1px',
+            height: `calc(100% - ${apt + pt + pb + apb}px)`,
+            right: `${pr - 1}px`,
+            top: `${apt + pt}px`,
+            width: '1px',
+            ...sx,
           }}
-        >
-          {ticks.x.map((d) => {
-            return (
-              <Box
-                key={d}
-                sx={{
-                  ...sx.tick,
-                  left: `${x(d)}%`,
-                  top: `0px`,
-                  transform: 'translate(-50%)',
-                }}
-              >
-                {d}
-              </Box>
-            )
-          })}
-        </Box>
+        />
       )}
-    </Box>
+      {bottom && (
+        <Box
+          sx={{
+            ...styles.axis,
+            borderTopWidth: '1px',
+            width: `calc(100% - ${apl + pl + pr + apr}px)`,
+            bottom: `${pb - 1}px`,
+            left: `${apl + pl}px`,
+            height: '1px',
+            ...sx,
+          }}
+        />
+      )}
+      {top && (
+        <Box
+          sx={{
+            ...styles.axis,
+            borderTopWidth: '1px',
+            width: `calc(100% - ${apl + pl + pr + apr}px)`,
+            top: `${pt}px`,
+            left: `${apl + pl}px`,
+            height: '1px',
+            ...sx,
+          }}
+        />
+      )}
+    </>
   )
 }
 
-export default memo(Axis)
+export default Axis
