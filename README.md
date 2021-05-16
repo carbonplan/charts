@@ -31,7 +31,7 @@ It's also super light weight, depending only on `react` and `theme-ui`. If there
 
 ## background
 
-This package is most directly inspired by [`pancake`](https://github.com/Rich-Harris/pancake) an experimental package build for `svelte`. The concept motivating `pancake` is that fluid, responsive charts that adapt to their containers can be built by using HTML for the chart and axes and SVG for the graphical elements. It's like an SVG `sandwich` or `pancake`. Pick your favorite food metaphor. Rich Harris described the concept super clearly in [a blog post](https://dev.to/richharris/a-new-technique-for-making-responsive-javascript-free-charts-gmp). Without knowing about `pancake`, we started doing almost _exactly_ the same thing a few months ago for all of our charts at `carbonplan`. There must be something to it.
+This package is most directly inspired by [`pancake`](https://github.com/Rich-Harris/pancake), an experimental package build for `svelte`. The concept motivating `pancake` is that fluid, responsive charts that adapt to their containers can be built by using HTML for the chart and axes and SVG for the graphical elements. It's like an SVG `sandwich` or `pancake`. Pick your favorite food metaphor. Rich Harris described the concept super clearly in [a blog post](https://dev.to/richharris/a-new-technique-for-making-responsive-javascript-free-charts-gmp). Without knowing about `pancake`, we started doing almost _exactly_ the same thing a few months ago for all of our charts at `carbonplan`. There must be something to it.
 
 However, to our knowledge, none of the existing charting libraries for JS take this approach. And `pancake` is built for `svelte`, whereas for now we're mainly using `react`. That's how we got here.
 
@@ -62,7 +62,7 @@ const ScatterChart = () => {
 }
 ```
 
-This results in using the `light` and `dark` modes of [`@carbonplan/theme`](https://github.com/carbonplan/theme).
+This creates the following chart, shown with the `light` and `dark` themes of [`@carbonplan/theme`](https://github.com/carbonplan/theme).
 
 <img width="419" alt="Screen Shot 2021-05-16 at 10 11 50 AM" src="https://user-images.githubusercontent.com/3387500/118406207-fed4a900-b62f-11eb-84a1-0f2b2d3311ef.png">
 <img width="437" alt="Screen Shot 2021-05-16 at 10 18 51 AM" src="https://user-images.githubusercontent.com/3387500/118406265-2297ef00-b630-11eb-99d4-d7eb16a0211b.png">
