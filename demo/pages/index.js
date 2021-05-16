@@ -11,7 +11,11 @@ import {
 
 const ScatterChart = () => {
   return (
-    <div style={{ width: '500px', height: '500px', padding: '64px' }}>
+    <>
+    <div style={{marginLeft: '64px', marginTop: '64px'}}>
+    <Dimmer/>
+    </div>
+    <div style={{ width: '80%', height: '500px', padding: '64px' }}>
       <Chart x={[0, 100]} y={[0, 100]}>
         <Grid vertical horizontal />
         <Ticks left bottom />
@@ -29,6 +33,7 @@ const ScatterChart = () => {
         </Plot>
       </Chart>
     </div>
+    </>
   )
 }
 
