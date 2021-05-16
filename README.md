@@ -42,7 +42,7 @@ Also worth mentioning that we've used `vega` and `vega-lite` and `d3` a lot. We 
 Here's a super simple scatter chart just to give you the idea.
 
 ```jsx
-import { Chart, Grid, Ticks, TickLabels, AxisLabel, Plot, Scatter } from '../src'
+import { Chart, Grid, Ticks, TickLabels, AxisLabel, Plot, Scatter } from '@carbonplan/charts'
 
 const ScatterChart = () => {
   return (
