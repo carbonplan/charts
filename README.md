@@ -27,6 +27,7 @@ We designed `@carbonplan/charts` with a few goals in mind:
 - fully responsive
 - modular and composable
 - easy to theme via `theme-ui`
+- plays great with `MDX`
 
 It's also super light weight, depending only on `react` and `theme-ui` and some `d3` utility packages. If there's interest we could probably factor out the `theme-ui` dependency so it's optional.
 
