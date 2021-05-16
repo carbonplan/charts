@@ -22,6 +22,7 @@
 There are _a lot_ of charting libraries for the web. Somehow, this one fills a niche that we think still exists. If nothing else, we find it useful, and will be using it ourselves!
 
 We designed `@carbonplan/charts` with a few goals in mind:
+
 - built for modern `react`
 - fully responsive
 - modular and composable
@@ -35,18 +36,26 @@ This package is most directly inspired by [`pancake`](https://github.com/Rich-Ha
 
 However, to our knowledge, none of the existing charting libraries for JS take this approach. And `pancake` is built for `svelte`, whereas we're mainly using `react`. That's how we got here.
 
-Also worth mentioning that we've used `vega` and `vega-lite` and `d3` a lot. We love them, we're taking inspiration all over the place, and even using some `d3` utilities under the hood. Incredibly grateful to the developers of those tools. 
+Also worth mentioning that we've used `vega` and `vega-lite` and `d3` a lot. We love them, we're taking inspiration all over the place, and even using some `d3` utilities under the hood. Incredibly grateful to the developers of those tools.
 
 ## usage
 
 Here's a super simple scatter chart just to give you the idea.
 
 ```jsx
-import { Chart, Grid, Ticks, TickLabels, AxisLabel, Plot, Scatter } from '@carbonplan/charts'
+import {
+  Chart,
+  Grid,
+  Ticks,
+  TickLabels,
+  AxisLabel,
+  Plot,
+  Scatter,
+} from '@carbonplan/charts'
 
 const ScatterChart = () => {
   return (
-    <div style={{width: '500px', height: '500px', padding: '64px' }}>
+    <div style={{ width: '500px', height: '500px', padding: '64px' }}>
       <Chart x={[0, 100]} y={[0, 100]}>
         <Grid vertical horizontal />
         <Ticks left bottom />
@@ -54,7 +63,13 @@ const ScatterChart = () => {
         <AxisLabel left>Variable one</AxisLabel>
         <AxisLabel bottom>Variable two</AxisLabel>
         <Plot>
-          <Scatter data={[[10, 10], [50, 50], [90, 90]]} />
+          <Scatter
+            data={[
+              [10, 10],
+              [50, 50],
+              [90, 90],
+            ]}
+          />
         </Plot>
       </Chart>
     </div>
