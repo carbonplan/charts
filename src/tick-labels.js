@@ -75,8 +75,8 @@ const TickLabels = ({
 }) => {
   const { x, y, logx, logy, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
-  countx = count == null ? logx ? 2 : 5 : countx
-  county = count == null ? logy ? 2 : 5 : county
+  countx = count == null ? (logx ? 2 : 5) : countx
+  county = count == null ? (logy ? 2 : 5) : county
 
   values = getTicks({ values, count, countx, county, logx, logy, x, y })
 

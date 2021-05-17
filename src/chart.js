@@ -7,7 +7,16 @@ export const useChart = () => {
   return useContext(ChartContext)
 }
 
-export const Chart = ({ x, y, padding = {}, axisPadding = {}, log = false, logx = false, logy = false, children }) => {
+export const Chart = ({
+  x,
+  y,
+  padding = {},
+  axisPadding = {},
+  log = false,
+  logx = false,
+  logy = false,
+  children,
+}) => {
   const { left: pl = 70, right: pr = 0, top: pt = 0, bottom: pb = 50 } = padding
 
   const {
