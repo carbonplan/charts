@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear, scaleLog } from 'd3-scale'
 
 const ChartContext = createContext(null)
 
@@ -7,7 +7,7 @@ export const useChart = () => {
   return useContext(ChartContext)
 }
 
-export const Chart = ({ x, y, padding = {}, axisPadding = {}, children }) => {
+export const Chart = ({ x, y, padding = {}, axisPadding = {}, log = false, children }) => {
   const { left: pl = 70, right: pr = 0, top: pt = 0, bottom: pb = 50 } = padding
 
   const {
@@ -17,14 +17,16 @@ export const Chart = ({ x, y, padding = {}, axisPadding = {}, children }) => {
     bottom: apb = 0,
   } = axisPadding
 
-  const xscale = scaleLinear().domain(x).range([0, 100]).clamp(true)
-  const yscale = scaleLinear().domain(y).range([100, 0]).clamp(true)
+  const baseScale = log ? scaleLog : scaleLinear
+  const xscale = baseScale().domain(x).range([0, 100]).clamp(true)
+  const yscale = baseScale().domain(y).range([100, 0]).clamp(true)
 
   return (
     <ChartContext.Provider
       value={{
         x: xscale,
         y: yscale,
+        log: log,
         pl: pl,
         pr: pr,
         pt: pt,

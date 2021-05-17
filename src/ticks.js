@@ -72,9 +72,9 @@ const Ticks = ({
   padding = 0,
   sx,
 }) => {
-  const { x, y, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
+  const { x, y, log, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
-  values = getTicks({ values, count, x, y })
+  values = getTicks({ values, count, log, x, y })
 
   return (
     <>

@@ -48,9 +48,9 @@ const HorizontalGrid = ({ values, y, sx }) => {
 }
 
 const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
-  const { x, y, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
+  const { x, y, pl, pr, pt, pb, apl, apr, apt, apb, log } = useChart()
 
-  values = getTicks({ values, count, x, y })
+  values = getTicks({ values, count, log, x, y })
 
   return (
     <>

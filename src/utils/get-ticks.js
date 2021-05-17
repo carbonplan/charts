@@ -7,14 +7,17 @@ export default function getTicks({
   horizontal,
   vertical,
   count,
+  log,
   x,
   y,
 }) {
   let verticalValues, horizontalValues
 
+  const generator = log ? logTicks : ticks
+
   if (!values) {
-    verticalValues = ticks(x.domain()[0], x.domain()[1], count)
-    horizontalValues = ticks(y.domain()[0], y.domain()[1], count)
+    verticalValues = generator(x.domain()[0], x.domain()[1], count)
+    horizontalValues = generator(y.domain()[0], y.domain()[1], count)
   } else {
     verticalValues = horizontalValues = values
   }
@@ -23,6 +26,67 @@ export default function getTicks({
     horizontal: horizontalValues,
     vertical: verticalValues,
   }
+}
+
+function logTicks(start, stop, count) {
+  var base = 10
+  var logs = logp(base)
+  var pows = powp(base)
+
+  var u = start,
+      v = stop,
+      r
+
+  if (r = v < u) i = u, u = v, v = i;
+
+  var i = logs(u),
+      j = logs(v),
+      p,
+      k,
+      t,
+      n = count == null ? 10 : +count,
+      z = [];
+
+  if (!(base % 1) && j - i < n) {
+    i = Math.floor(i), j = Math.ceil(j);
+    if (u > 0) for (; i <= j; ++i) {
+      for (k = 1, p = pows(i); k < base; ++k) {
+        t = p * k;
+        if (t < u) continue;
+        if (t > v) break;
+        z.push(t);
+      }
+    } else for (; i <= j; ++i) {
+      for (k = base - 1, p = pows(i); k >= 1; --k) {
+        t = p * k;
+        if (t < u) continue;
+        if (t > v) break;
+        z.push(t);
+      }
+    }
+    if (z.length * 2 < n) z = ticks(u, v, n);
+  } else {
+    z = ticks(i, j, Math.min(j - i, n)).map(pows);
+  }
+
+  return r ? z.reverse() : z;
+}
+
+function logp(base) {
+  return base === Math.E ? Math.log
+      : base === 10 && Math.log10
+      || base === 2 && Math.log2
+      || (base = Math.log(base), function(x) { return Math.log(x) / base; });
+}
+
+function powp(base) {
+  return base === 10 ? pow10
+      : base === Math.E ? Math.exp
+      : function(x) { return Math.pow(base, x); };
+}
+
+function pow10(x) {
+  return isFinite(x) ? +("1e" + x) : x < 0 ? 0 : x;
 }
 
 function ticks(start, stop, count) {
