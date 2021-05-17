@@ -72,9 +72,9 @@ const Ticks = ({
   padding = 0,
   sx,
 }) => {
-  const { x, y, log, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
+  const { x, y, logx, logy, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
-  values = getTicks({ values, count, log, x, y })
+  values = getTicks({ values, count, logx, logy, x, y })
 
   return (
     <>
@@ -145,7 +145,7 @@ const Ticks = ({
             height: `${pt}px`,
             width: `calc(100% - ${apl + pl + pr + apr}px)`,
             left: `${apl + pl}px`,
-            top: `0px`,
+            top: `1px`,
           }}
         >
           <VerticalTicks

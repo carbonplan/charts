@@ -7,14 +7,7 @@ export const useChart = () => {
   return useContext(ChartContext)
 }
 
-export const Chart = ({
-  x,
-  y,
-  padding = {},
-  axisPadding = {},
-  log = false,
-  children,
-}) => {
+export const Chart = ({ x, y, padding = {}, axisPadding = {}, log = false, logx = false, logy = false, children }) => {
   const { left: pl = 70, right: pr = 0, top: pt = 0, bottom: pb = 50 } = padding
 
   const {
@@ -24,16 +17,23 @@ export const Chart = ({
     bottom: apb = 0,
   } = axisPadding
 
-  const baseScale = log ? scaleLog : scaleLinear
-  const xscale = baseScale().domain(x).range([0, 100]).clamp(true)
-  const yscale = baseScale().domain(y).range([100, 0]).clamp(true)
+  if (log) {
+    logx = true
+    logy = true
+  }
+
+  const xBaseScale = logx ? scaleLog : scaleLinear
+  const yBaseScale = logy ? scaleLog : scaleLinear
+  const xScale = xBaseScale().domain(x).range([0, 100]).clamp(true)
+  const yScale = yBaseScale().domain(y).range([100, 0]).clamp(true)
 
   return (
     <ChartContext.Provider
       value={{
-        x: xscale,
-        y: yscale,
-        log: log,
+        x: xScale,
+        y: yScale,
+        logx: logx,
+        logy: logy,
         pl: pl,
         pr: pr,
         pt: pt,

@@ -1,3 +1,4 @@
+import Axis from './axis'
 import AxisLabel from './axis-label'
 import Chart, { useChart } from './chart'
 import Circle from './circle'
@@ -11,6 +12,7 @@ import TickLabels from './tick-labels'
 import Ticks from './ticks'
 
 export {
+  Axis,
   AxisLabel,
   Chart,
   Circle,

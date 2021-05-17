@@ -21,7 +21,7 @@ const VerticalGrid = ({ values, x, sx }) => {
         sx={{
           ...styles.grid,
           left: `${x(d)}%`,
-          height: `calc(100% - 1px)`,
+          height: `calc(100% + 1px)`,
           borderLeftWidth: '1px',
           ...sx,
         }}
@@ -39,7 +39,7 @@ const HorizontalGrid = ({ values, y, sx }) => {
           ...styles.grid,
           top: `${y(d)}%`,
           borderTopWidth: '1px',
-          width: `calc(100% - 1px)`,
+          width: `calc(100% + 1px)`,
           ...sx,
         }}
       />
@@ -48,9 +48,9 @@ const HorizontalGrid = ({ values, y, sx }) => {
 }
 
 const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
-  const { x, y, pl, pr, pt, pb, apl, apr, apt, apb, log } = useChart()
+  const { x, y, logx, logy, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
-  values = getTicks({ values, count, log, x, y })
+  values = getTicks({ values, count, logx, logy, x, y })
 
   return (
     <>

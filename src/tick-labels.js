@@ -67,15 +67,18 @@ const TickLabels = ({
   top,
   bottom,
   count,
+  countx,
+  county,
   values,
   padding = 8,
   sx,
 }) => {
-  const { x, y, log, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
+  const { x, y, logx, logy, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
-  count = count == null ? (log ? 2 : 5) : count
+  countx = count == null ? logx ? 2 : 5 : countx
+  county = count == null ? logy ? 2 : 5 : county
 
-  values = getTicks({ values, count, log, x, y })
+  values = getTicks({ values, count, countx, county, logx, logy, x, y })
 
   return (
     <>
@@ -143,7 +146,7 @@ const TickLabels = ({
             height: `${pt}px`,
             width: `calc(100% - ${apl + pl + pr + apr}px)`,
             left: `${apl + pl}px`,
-            top: `0px`,
+            top: `1px`,
           }}
         >
           <VerticalTickLabels
