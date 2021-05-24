@@ -14,7 +14,15 @@ const styles = {
   },
 }
 
-const VerticalTickLabels = ({ values, x, top, bottom, padding, sx }) => {
+const VerticalTickLabels = ({
+  values,
+  x,
+  labels,
+  top,
+  bottom,
+  padding,
+  sx,
+}) => {
   let position
   if (top) position = { bottom: `${padding}px` }
   if (bottom) position = { top: `${padding}px` }
@@ -31,13 +39,21 @@ const VerticalTickLabels = ({ values, x, top, bottom, padding, sx }) => {
           ...sx,
         }}
       >
-        {d}
+        {labels[i]}
       </Box>
     )
   })
 }
 
-const HorizontalTickLabels = ({ values, y, left, right, padding, sx }) => {
+const HorizontalTickLabels = ({
+  values,
+  y,
+  labels,
+  left,
+  right,
+  padding,
+  sx,
+}) => {
   let position
   if (left) position = { right: `${padding + 4}px` }
   if (right) position = { left: `${padding + 4}px` }
@@ -55,7 +71,7 @@ const HorizontalTickLabels = ({ values, y, left, right, padding, sx }) => {
           ...sx,
         }}
       >
-        {d}
+        {labels[i]}
       </Box>
     )
   })
@@ -67,18 +83,41 @@ const TickLabels = ({
   top,
   bottom,
   count,
-  countx,
-  county,
   values,
+  labels,
+  format,
   padding = 8,
   sx,
 }) => {
   const { x, y, logx, logy, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
-  countx = count == null ? (logx ? 2 : 5) : countx
-  county = count == null ? (logy ? 2 : 5) : county
+  const countx = count == null ? (logx ? 2 : 5) : count
+  const county = count == null ? (logy ? 2 : 5) : count
 
   values = getTicks({ values, count, countx, county, logx, logy, x, y })
+
+  if ((left || right) && labels && labels.length !== values.horizontal.length) {
+    throw Error(
+      `when specfiying labels directly the number of labels must match the number of ticks, got ${labels.length} labels for ${values.horizontal.length} values`
+    )
+  }
+
+  if ((top || bottom) && labels && labels.length !== values.vertical.length) {
+    throw Error(
+      `when specfiying labels directly the number of labels must match the number of ticks, got ${labels.length} labels for ${values.vertical.length} values`
+    )
+  }
+
+  if (format) {
+    labels = {
+      horizontal: values.horizontal.map((d) => format(d)),
+      vertical: values.vertical.map((d) => format(d)),
+    }
+  } else {
+    labels = labels
+      ? { vertical: labels, horizontal: labels }
+      : { vertical: values.vertical, horizontal: values.horizontal }
+  }
 
   return (
     <>
@@ -95,6 +134,7 @@ const TickLabels = ({
           <HorizontalTickLabels
             left
             values={values.horizontal}
+            labels={labels.horizontal}
             padding={padding}
             y={y}
             sx={sx}
@@ -114,6 +154,7 @@ const TickLabels = ({
           <HorizontalTickLabels
             right
             values={values.horizontal}
+            labels={labels.horizontal}
             padding={padding}
             y={y}
             sx={sx}
@@ -133,6 +174,7 @@ const TickLabels = ({
           <VerticalTickLabels
             bottom
             values={values.vertical}
+            labels={labels.vertical}
             padding={padding}
             x={x}
             sx={sx}
@@ -152,6 +194,7 @@ const TickLabels = ({
           <VerticalTickLabels
             top
             values={values.vertical}
+            labels={labels.vertical}
             padding={padding}
             x={x}
             sx={sx}

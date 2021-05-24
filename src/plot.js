@@ -1,7 +1,8 @@
 import React from 'react'
+import { Box } from 'theme-ui'
 import { useChart } from './chart'
 
-const Plot = ({ children, mode = 'svg' }) => {
+const Plot = ({ children, sx, mode = 'svg' }) => {
   const { pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
   return (
@@ -15,14 +16,19 @@ const Plot = ({ children, mode = 'svg' }) => {
       }}
     >
       {mode === 'svg' && (
-        <svg
+        <Box
+          as='svg'
           height='100%'
           viewBox='0 0 100 100'
           width='100%'
           preserveAspectRatio='none'
+          sx={{
+            overflow: 'visible',
+            ...sx,
+          }}
         >
           {children}
-        </svg>
+        </Box>
       )}
     </div>
   )

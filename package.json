@@ -1,6 +1,6 @@
 {
   "name": "@carbonplan/charts",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "themeable reusable responsive web charts",
   "main": "dst/index.js",
   "module": "dst/index.esm.js",
