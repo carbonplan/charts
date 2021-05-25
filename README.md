@@ -21,7 +21,7 @@
 
 There are _a lot_ of charting libraries for the web. Somehow, this one fills a niche that we think still exists. If nothing else, we find it useful, and will be using it ourselves! It's still super early in development, so expect lots of changes.
 
-We designed `@carbonplan/charts` with a few goals in mind:
+We're designing `@carbonplan/charts` with a few goals in mind:
 
 - built for modern `react` :arrow_upper_right:
 - fully responsive :left_right_arrow:
