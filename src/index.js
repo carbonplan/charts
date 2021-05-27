@@ -2,6 +2,7 @@ import Axis from './axis'
 import AxisLabel from './axis-label'
 import Chart, { useChart } from './chart'
 import Circle from './circle'
+import Donut from './donut'
 import Grid from './grid'
 import Label from './label'
 import Line from './line'
@@ -16,6 +17,7 @@ export {
   AxisLabel,
   Chart,
   Circle,
+  Donut,
   Grid,
   Label,
   Line,

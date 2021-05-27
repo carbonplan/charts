@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import { useChart } from './chart'
 
-const Plot = ({ children, sx, mode = 'svg' }) => {
+const Plot = ({ children, sx, mode = 'svg', square = false }) => {
   const { pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
   return (
@@ -21,7 +21,7 @@ const Plot = ({ children, sx, mode = 'svg' }) => {
           height='100%'
           viewBox='0 0 100 100'
           width='100%'
-          preserveAspectRatio='none'
+          preserveAspectRatio={square ? 'xMidYMid' : 'none'}
           sx={{
             overflow: 'visible',
             ...sx,

@@ -33,8 +33,8 @@ export const Chart = ({
 
   const xBaseScale = logx ? scaleLog : scaleLinear
   const yBaseScale = logy ? scaleLog : scaleLinear
-  const xScale = xBaseScale().domain(x).range([0, 100]).clamp(true)
-  const yScale = yBaseScale().domain(y).range([100, 0]).clamp(true)
+  const xScale = x ? xBaseScale().domain(x).range([0, 100]).clamp(true) : null
+  const yScale = y ? yBaseScale().domain(y).range([100, 0]).clamp(true) : null
 
   return (
     <ChartContext.Provider
