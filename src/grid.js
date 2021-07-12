@@ -21,7 +21,7 @@ const VerticalGrid = ({ values, x, sx }) => {
         sx={{
           ...styles.grid,
           left: `${x(d)}%`,
-          height: `calc(100% + 1px)`,
+          height: `calc(100%)`,
           borderLeftWidth: '1px',
           ...sx,
         }}
@@ -39,7 +39,7 @@ const HorizontalGrid = ({ values, y, sx }) => {
           ...styles.grid,
           top: `${y(d)}%`,
           borderTopWidth: '1px',
-          width: `calc(100% + 1px)`,
+          width: `calc(100%)`,
           ...sx,
         }}
       />
@@ -59,7 +59,7 @@ const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
           sx={{
             position: 'absolute',
             height: `calc(100% - ${apt + pt + pb + apb}px)`,
-            width: `calc(100% - ${apl + pl + pr + apr}px)`,
+            width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
             left: `${apl + pl}px`,
             top: `${apt + pt}px`,
           }}

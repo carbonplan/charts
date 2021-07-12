@@ -84,7 +84,7 @@ const Ticks = ({
             position: 'absolute',
             top: `${apt + pt}px`,
             height: `calc(100% - ${apt + pt + pb + apb}px)`,
-            width: `${pl}px`,
+            width: `${pl + 1}px`,
             left: 0,
           }}
         >
@@ -105,7 +105,7 @@ const Ticks = ({
             top: `${apt + pt}px`,
             height: `calc(100% - ${apt + pt + pb + apb}px)`,
             width: `${pr}px`,
-            left: `calc(100% - ${pr}px)`,
+            left: `calc(100% - ${pr + 1}px)`,
           }}
         >
           <HorizontalTicks
@@ -123,7 +123,7 @@ const Ticks = ({
           sx={{
             position: 'absolute',
             height: `${pb}px`,
-            width: `calc(100% - ${apl + pl + pr + apr}px)`,
+            width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
             left: `${apl + pl}px`,
             bottom: '0px',
           }}
@@ -143,7 +143,7 @@ const Ticks = ({
           sx={{
             position: 'absolute',
             height: `${pt}px`,
-            width: `calc(100% - ${apl + pl + pr + apr}px)`,
+            width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
             left: `${apl + pl}px`,
             top: `1px`,
           }}

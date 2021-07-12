@@ -31,16 +31,27 @@ export const Chart = ({
     logy = true
   }
 
-  const xBaseScale = logx ? scaleLog : scaleLinear
-  const yBaseScale = logy ? scaleLog : scaleLinear
-  const xScale = x ? xBaseScale().domain(x).range([0, 100]).clamp(true) : null
-  const yScale = y ? yBaseScale().domain(y).range([100, 0]).clamp(true) : null
+  let x_, y_
 
+  if (Array.isArray(x)) {
+    const xBaseScale = logx ? scaleLog : scaleLinear
+    x_ = x ? xBaseScale().domain(x).range([0, 100]).clamp(true) : null
+  } else {
+    x_ = x
+  }
+
+  if (Array.isArray(y)) {
+    const yBaseScale = logy ? scaleLog : scaleLinear
+    y_ = y ? yBaseScale().domain(y).range([100, 0]).clamp(true) : null
+  } else {
+    y_ = y
+  }
+  
   return (
     <ChartContext.Provider
       value={{
-        x: xScale,
-        y: yScale,
+        x: x_,
+        y: y_,
         logx: logx,
         logy: logy,
         pl: pl,

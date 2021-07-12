@@ -10,9 +10,10 @@ const Plot = ({ children, sx, mode = 'svg', square = false }) => {
       style={{
         position: 'absolute',
         height: `calc(100% - ${apt + pt + pb + apb}px)`,
-        width: `calc(100% - ${apl + pl + pr + apr}px)`,
+        width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
         left: `${apl + pl}px`,
         top: `${apt + pt}px`,
+        transform: `translate(0.5px, 0.5px)`
       }}
     >
       {mode === 'svg' && (

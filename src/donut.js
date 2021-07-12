@@ -22,25 +22,23 @@ const Donut = ({
   const opacity = scaleLinear().domain(domain).range(range)
 
   return (
-    <>
-      <g transform='translate(50,50)'>
-        {arcs.map((d, i) => {
-          return (
-            <Box
-              key={i}
-              as='path'
-              d={generator(d)}
-              sx={{
-                stroke: 'none',
-                fillOpacity: opacity(d.index),
-                fill: color,
-                ...sx,
-              }}
-            />
-          )
-        })}
-      </g>
-    </>
+    <g transform='translate(50,50)'>
+      {arcs.map((d, i) => {
+        return (
+          <Box
+            key={i}
+            as='path'
+            d={generator(d)}
+            sx={{
+              stroke: 'none',
+              fillOpacity: opacity(d.index),
+              fill: color,
+              ...sx,
+            }}
+          />
+        )
+      })}
+    </g>
   )
 }
 

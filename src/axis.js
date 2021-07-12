@@ -35,7 +35,7 @@ const Axis = ({ left, right, top, bottom, sx }) => {
             ...styles.axis,
             borderRightWidth: '1px',
             height: `calc(100% - ${apt + pt + pb + apb}px)`,
-            right: `${pr - 1}px`,
+            right: `${pr}px`,
             top: `${apt + pt}px`,
             width: '1px',
             ...sx,
