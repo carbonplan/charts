@@ -25,11 +25,14 @@
     "url": "https://github.com/carbonplan/charts/issues"
   },
   "dependencies": {
-    "@carbonplan/components": "^7.6.2",
-    "@carbonplan/theme": "^5.0.0",
+    "@carbonplan/components": "^8.0.0",
+    "@carbonplan/prism": "^1.0.3",
+    "@carbonplan/theme": "^6.0.1",
+    "@mdx-js/loader": "^1.6.22",
+    "@next/mdx": "^10.2.3",
     "d3-scale": "^3.3.0",
     "d3-shape": "^2.1.0",
-    "next": "^10.2.0",
+    "next": "^11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
