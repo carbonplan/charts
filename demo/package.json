@@ -25,7 +25,7 @@
     "url": "https://github.com/carbonplan/charts/issues"
   },
   "dependencies": {
-    "@carbonplan/components": "^8.0.0",
+    "@carbonplan/components": "^10.0.0",
     "@carbonplan/prism": "^1.0.3",
     "@carbonplan/theme": "^6.0.1",
     "@mdx-js/loader": "^1.6.22",
