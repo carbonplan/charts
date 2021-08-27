@@ -13,7 +13,7 @@ const Plot = ({ children, sx, mode = 'svg', square = false }) => {
         width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
         left: `${apl + pl}px`,
         top: `${apt + pt}px`,
-        transform: `translate(0.5px, 0.5px)`
+        transform: `translate(0.5px, 0.5px)`,
       }}
     >
       {mode === 'svg' && (

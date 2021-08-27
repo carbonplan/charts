@@ -9,8 +9,8 @@ const Scatter = ({ data, x, y, color = 'primary', size = 10, sx }) => {
 
   const path = data
     .map(
-      (d, i) => 
-         `M${_x(x(d))} ${_y(y(d))} A0 0 0 0 1 ${_x(x(d)) + 0.0001} ${
+      (d, i) =>
+        `M${_x(x(d))} ${_y(y(d))} A0 0 0 0 1 ${_x(x(d)) + 0.0001} ${
           _y(y(d)) + 0.0001
         }`
     )
