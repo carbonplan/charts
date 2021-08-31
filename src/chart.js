@@ -46,7 +46,7 @@ export const Chart = ({
   } else {
     y_ = y
   }
-  
+
   return (
     <ChartContext.Provider
       value={{
