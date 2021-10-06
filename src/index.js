@@ -1,3 +1,4 @@
+import Area from './area'
 import Axis from './axis'
 import AxisLabel from './axis-label'
 import Chart, { useChart } from './chart'
@@ -13,6 +14,7 @@ import TickLabels from './tick-labels'
 import Ticks from './ticks'
 
 export {
+  Area,
   Axis,
   AxisLabel,
   Chart,
