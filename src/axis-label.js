@@ -22,6 +22,7 @@ const AxisLabel = ({
   bottom,
   children,
   sx,
+  units,
   arrow = true,
   align = 'right',
 }) => {
@@ -38,6 +39,18 @@ const AxisLabel = ({
     right: 'flex-end',
     center: 'center',
   }
+
+  const inner = (
+    <>
+      {children}
+      {units && (
+        <>
+          &nbsp;
+          <Box sx={{ textTransform: 'none', color: 'secondary' }}>{units}</Box>
+        </>
+      )}
+    </>
+  )
 
   return (
     <>
@@ -58,7 +71,7 @@ const AxisLabel = ({
               justifyContent: alignToFlex[align],
             }}
           >
-            {children}
+            {inner}
             {arrow && (
               <>
                 <Arrow
@@ -107,7 +120,7 @@ const AxisLabel = ({
                   justifyContent: alignToFlex[align],
                 }}
               >
-                {children}
+                {inner}
                 {arrow && (
                   <>
                     <Arrow
