@@ -36,6 +36,4 @@ This is a scatter chart.
   </Chart>
 </Box>
 
-export default ({children}) => <Section name='scatter'>{children}</Section
-
->
+export default ({ children }) => <Section name='scatter'>{children}</Section>

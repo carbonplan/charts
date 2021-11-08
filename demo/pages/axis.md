@@ -39,6 +39,4 @@ This is a simple axis with a grid, ticks, tick labels, and axis labels.
 </Box>
 ```
 
-export default ({children}) => <Section name='axis'>{children}</Section
-
->
+export default ({ children }) => <Section name='axis'>{children}</Section>

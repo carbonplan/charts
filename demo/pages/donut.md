@@ -14,6 +14,4 @@ This is a donut chart.
   </Chart>
 </Box>
 
-export default ({children}) => <Section name='donut'>{children}</Section
-
->
+export default ({ children }) => <Section name='donut'>{children}</Section>

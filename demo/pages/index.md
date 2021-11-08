@@ -4,6 +4,4 @@ import Section from '../components/section'
 
 This site documents our charting library.
 
-export default ({children}) => <Section name='intro'>{children}</Section
-
->
+export default ({ children }) => <Section name='intro'>{children}</Section>
