@@ -29,6 +29,7 @@ const StackedBar = ({
       )
     }
 
+    yValues.sort((a, b) => a - b)
     yValues.slice(1).forEach((_, i) => {
       accum[i].push([x, yValues[i], yValues[i + 1]])
     })
