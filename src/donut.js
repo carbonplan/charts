@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import { min, max } from 'd3-array'
 import { arc, pie } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { Box } from 'theme-ui'
@@ -13,7 +12,7 @@ const Donut = ({
   color = 'primary',
   sx,
 }) => {
-  domain = domain || [0, data.length]
+  domain = domain || [0, data.length - 1]
   range = range || [0.3, 0.9]
   const arcs = pie()(data)
   const generator = arc()
