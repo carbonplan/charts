@@ -36,6 +36,7 @@ const Bar = ({
     <>
       {data.map(([x, y1, y0], i) => (
         <Rect
+          key={i}
           x={[_x.invert(_x(x) - offset), _x.invert(_x(x) + offset)]}
           y={[y0 || 0, y1]}
           color={typeof color === 'string' ? color : color[i]}

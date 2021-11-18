@@ -42,13 +42,16 @@ const StackedBar = ({
       `Unexpected color array provided. Expected length ${stackedData.length}, received length ${color.length}`
     )
   }
-  const opacity = scaleLinear().domain([bars.length, 0]).range(range)
+  const opacity = scaleLinear()
+    .domain([bars.length - 1, 0])
+    .range(range)
 
   return (
     <>
       {bars.map((bar, i) => (
         <Bar
           {...props}
+          key={i}
           data={bar}
           color={typeof color === 'string' ? color : color[i]}
           sx={{
