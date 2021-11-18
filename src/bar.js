@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
+import { Box } from 'theme-ui'
 import { useChart } from './chart'
-
-import Rect from './rect'
 
 const Bar = ({
   data,
@@ -10,7 +9,7 @@ const Bar = ({
   color = 'primary',
   sx,
 }) => {
-  const { x: _x } = useChart()
+  const { x: _x, y: _y } = useChart()
 
   const minDelta = data
     .sort()
@@ -24,7 +23,7 @@ const Bar = ({
       }
     }, null)
 
-  const offset = (minDelta / 2) * width
+  const fixedWidth = minDelta * width
 
   if (Array.isArray(color) && color.length !== data.length) {
     throw new Error(
@@ -34,15 +33,25 @@ const Bar = ({
 
   return (
     <>
-      {data.map(([x, y1, y0], i) => (
-        <Rect
-          key={i}
-          x={[_x.invert(_x(x) - offset), _x.invert(_x(x) + offset)]}
-          y={[y0 || 0, y1]}
-          color={typeof color === 'string' ? color : color[i]}
-          sx={sx}
-        />
-      ))}
+      {data.map(([x, y1, y0 = 0], i) => {
+        const lower = Math.min(y0, y1)
+        const upper = Math.max(y0, y1)
+        return (
+          <Box
+            as='rect'
+            key={i}
+            x={`${_x(x) - fixedWidth / 2}`}
+            y={`${_y(upper)}`}
+            width={fixedWidth}
+            height={`${_y(lower) - _y(upper)}`}
+            sx={{
+              fill: typeof color === 'string' ? color : color[i],
+              stroke: 'none',
+              ...sx,
+            }}
+          />
+        )
+      })}
     </>
   )
 }
