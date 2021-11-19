@@ -10,6 +10,7 @@ import Label from './label'
 import Line from './line'
 import Plot from './plot'
 import Point from './point'
+import Rect from './rect'
 import Scatter from './scatter'
 import StackedBar from './stacked-bar'
 import TickLabels from './tick-labels'
@@ -28,6 +29,7 @@ export {
   Line,
   Plot,
   Point,
+  Rect,
   Scatter,
   StackedBar,
   TickLabels,
