@@ -48,25 +48,27 @@ const getBarColors = (color, barLength, dataLength, opacityRange) => {
 }
 
 const StackedBar = ({ data, color = 'primary', range, sx, ...props }) => {
-  const stackedData = data[0].slice(2).map(() => [])
-  const bars = data.reduce((accum, datum) => {
-    const [x, ...yValues] = datum
+  const bars = useMemo(() => {
+    const stackedData = data[0].slice(2).map(() => [])
+    return data.reduce((accum, datum) => {
+      const [x, ...yValues] = datum
 
-    if (yValues.length - 1 !== accum.length) {
-      throw new Error(
-        `Mismatching number of y values provided. Expected ${
-          accum.length + 1
-        } y values, received ${yValues.length}.`
-      )
-    }
+      if (yValues.length - 1 !== accum.length) {
+        throw new Error(
+          `Mismatching number of y values provided. Expected ${
+            accum.length + 1
+          } y values, received ${yValues.length}.`
+        )
+      }
 
-    yValues.sort((a, b) => a - b)
-    yValues.slice(1).forEach((_, i) => {
-      accum[i].push([x, yValues[i], yValues[i + 1]])
-    })
+      yValues.sort((a, b) => a - b)
+      yValues.slice(1).forEach((_, i) => {
+        accum[i].push([x, yValues[i], yValues[i + 1]])
+      })
 
-    return accum
-  }, stackedData)
+      return accum
+    }, stackedData)
+  }, [data])
 
   const { colors, opacities } = useMemo(
     () => getBarColors(color, bars.length, data.length, range || [0.3, 0.9]),
