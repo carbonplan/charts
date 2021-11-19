@@ -5,7 +5,7 @@ import { useChart } from './chart'
 const Bar = ({
   data,
   width = 1,
-  direction = 'horizontal',
+  direction = 'vertical',
   color = 'primary',
   sx,
 }) => {
@@ -33,9 +33,12 @@ const Bar = ({
 
   return (
     <>
-      {data.map(([x, y1, y0 = 0], i) => {
+      {data.map(([x, ...yValues], i) => {
+        const y0 = yValues.length === 2 ? yValues[0] : 0
+        const y1 = yValues[yValues.length - 1]
         const lower = Math.min(y0, y1)
         const upper = Math.max(y0, y1)
+
         return (
           <Box
             as='rect'
