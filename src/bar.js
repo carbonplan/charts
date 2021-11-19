@@ -4,7 +4,7 @@ import { useChart } from './chart'
 
 const Bar = ({
   data,
-  width = 1,
+  width = 0.8,
   direction = 'vertical',
   color = 'primary',
   sx,
