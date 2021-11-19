@@ -36,19 +36,27 @@ const Bar = ({
   return (
     <>
       {data.map((d, i) => {
-        const fixed = d[0]
+        const fixedPosition = flipped ? _y(d[0]) : _x(d[0])
         const varying = [d.length === 3 ? d[1] : 0, d[d.length - 1]]
-        const lower = Math.min(...varying)
-        const upper = Math.max(...varying)
+        const varyingPositions = varying.map(flipped ? _x : _y)
+        const lower = Math.min(...varyingPositions)
+        const upper = Math.max(...varyingPositions)
+
+        const props = {
+          x: `${fixedPosition - fixedWidth / 2}`,
+          y: `${lower}`,
+          width: fixedWidth,
+          height: `${upper - lower}`,
+        }
 
         return (
           <Box
             as='rect'
             key={i}
-            x={flipped ? `${_x(lower)}` : `${_x(fixed) - fixedWidth / 2}`}
-            y={flipped ? `${_y(fixed) - fixedWidth / 2}` : `${_y(upper)}`}
-            width={flipped ? `${_x(upper) - _x(lower)}` : fixedWidth}
-            height={flipped ? fixedWidth : `${_y(lower) - _y(upper)}`}
+            x={flipped ? props.y : props.x}
+            y={flipped ? props.x : props.y}
+            width={flipped ? props.height : props.width}
+            height={flipped ? props.width : props.height}
             sx={{
               fill: typeof color === 'string' ? color : color[i],
               stroke: 'none',
