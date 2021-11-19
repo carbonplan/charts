@@ -10,13 +10,6 @@ const StackedBar = ({
   sx,
   ...props
 }) => {
-  // [[x, y0, y1, y2, ...], [x, y0, y1, y2, ...], ...]
-  // => [
-  //      [[x, y0, y1], [x, y0, y1], ...],
-  //      [[x, y1, y2], [x, y1, y2], ...],
-  //      ...
-  //    ]
-
   const stackedData = data[0].slice(2).map(() => [])
   const bars = data.reduce((accum, datum) => {
     const [x, ...yValues] = datum

@@ -10,12 +10,14 @@ const Bar = ({
   sx,
 }) => {
   const { x: _x, y: _y } = useChart()
+  const flipped = direction === 'horizontal'
 
   const minDelta = data
     .sort()
     .slice(1)
     .reduce((min, el, i) => {
-      const diff = Math.abs(_x(el[0]) - _x(data[i][0]))
+      const transform = flipped ? _y : _x
+      const diff = Math.abs(transform(el[0]) - transform(data[i][0]))
       if (typeof min !== 'number' || diff < min) {
         return diff
       } else {
@@ -33,20 +35,20 @@ const Bar = ({
 
   return (
     <>
-      {data.map(([x, ...yValues], i) => {
-        const y0 = yValues.length === 2 ? yValues[0] : 0
-        const y1 = yValues[yValues.length - 1]
-        const lower = Math.min(y0, y1)
-        const upper = Math.max(y0, y1)
+      {data.map((d, i) => {
+        const fixed = d[0]
+        const varying = [d.length === 3 ? d[1] : 0, d[d.length - 1]]
+        const lower = Math.min(...varying)
+        const upper = Math.max(...varying)
 
         return (
           <Box
             as='rect'
             key={i}
-            x={`${_x(x) - fixedWidth / 2}`}
-            y={`${_y(upper)}`}
-            width={fixedWidth}
-            height={`${_y(lower) - _y(upper)}`}
+            x={flipped ? `${_x(lower)}` : `${_x(fixed) - fixedWidth / 2}`}
+            y={flipped ? `${_y(fixed) - fixedWidth / 2}` : `${_y(upper)}`}
+            width={flipped ? `${_x(upper) - _x(lower)}` : fixedWidth}
+            height={flipped ? fixedWidth : `${_y(lower) - _y(upper)}`}
             sx={{
               fill: typeof color === 'string' ? color : color[i],
               stroke: 'none',
