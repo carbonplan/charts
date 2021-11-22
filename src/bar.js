@@ -14,14 +14,15 @@ const Bar = ({
 
   const flipped = direction === 'horizontal'
 
+  const xValues = data.map((d) => d[0])
   const minDelta = useMemo(
     () =>
-      data
+      xValues
         .sort()
         .slice(1)
         .reduce((min, el, i) => {
           const transform = flipped ? _y : _x
-          const diff = Math.abs(transform(el[0]) - transform(data[i][0]))
+          const diff = Math.abs(transform(el) - transform(xValues[i]))
           if (typeof min !== 'number' || diff < min) {
             return diff
           } else {
@@ -29,7 +30,7 @@ const Bar = ({
           }
         }, null),
 
-    [data]
+    [xValues.join(',')]
   )
   const fixedWidth = minDelta * width
   if (Array.isArray(color) && color.length !== data.length) {
