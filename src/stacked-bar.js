@@ -47,7 +47,7 @@ const getBarColors = (color, barLength, dataLength, opacityRange) => {
   return { colors, opacities }
 }
 
-const StackedBar = ({ data, color = 'primary', range, sx, ...props }) => {
+const StackedBar = ({ data, color = 'primary', range, ...props }) => {
   const bars = useMemo(() => {
     const stackedData = data[0].slice(2).map(() => [])
     return data.reduce((accum, datum) => {
@@ -84,10 +84,7 @@ const StackedBar = ({ data, color = 'primary', range, sx, ...props }) => {
             key={i}
             data={bar}
             color={colors[i]}
-            sx={{
-              fillOpacity: opacities[i],
-              ...sx,
-            }}
+            fillOpacity={opacities[i]}
           />
         )
       })}

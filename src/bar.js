@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { Box } from 'theme-ui'
+import { useThemeUI } from 'theme-ui'
 import { useChart } from './chart'
 
 const Bar = ({
@@ -7,9 +7,11 @@ const Bar = ({
   width = 0.8,
   direction = 'vertical',
   color = 'primary',
-  sx,
+  ...props
 }) => {
   const { x: _x, y: _y } = useChart()
+  const { theme } = useThemeUI()
+
   const flipped = direction === 'horizontal'
 
   const minDelta = data
@@ -42,26 +44,25 @@ const Bar = ({
         const lower = Math.min(...varyingPositions)
         const upper = Math.max(...varyingPositions)
 
-        const props = {
+        const rectProps = {
           x: `${fixedPosition - fixedWidth / 2}`,
           y: `${lower}`,
           width: fixedWidth,
           height: `${upper - lower}`,
         }
+        const colorString = typeof color === 'string' ? color : color[i]
+        const fill = theme.rawColors[colorString] || colorString
 
         return (
-          <Box
-            as='rect'
+          <rect
             key={i}
-            x={flipped ? props.y : props.x}
-            y={flipped ? props.x : props.y}
-            width={flipped ? props.height : props.width}
-            height={flipped ? props.width : props.height}
-            sx={{
-              fill: typeof color === 'string' ? color : color[i],
-              stroke: 'none',
-              ...sx,
-            }}
+            {...props}
+            x={flipped ? rectProps.y : rectProps.x}
+            y={flipped ? rectProps.x : rectProps.y}
+            width={flipped ? rectProps.height : rectProps.width}
+            height={flipped ? rectProps.width : rectProps.height}
+            fill={fill}
+            stroke='none'
           />
         )
       })}
