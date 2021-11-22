@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { useThemeUI } from 'theme-ui'
 import { useChart } from './chart'
 
@@ -14,21 +14,24 @@ const Bar = ({
 
   const flipped = direction === 'horizontal'
 
-  const minDelta = data
-    .sort()
-    .slice(1)
-    .reduce((min, el, i) => {
-      const transform = flipped ? _y : _x
-      const diff = Math.abs(transform(el[0]) - transform(data[i][0]))
-      if (typeof min !== 'number' || diff < min) {
-        return diff
-      } else {
-        return min
-      }
-    }, null)
+  const minDelta = useMemo(
+    () =>
+      data
+        .sort()
+        .slice(1)
+        .reduce((min, el, i) => {
+          const transform = flipped ? _y : _x
+          const diff = Math.abs(transform(el[0]) - transform(data[i][0]))
+          if (typeof min !== 'number' || diff < min) {
+            return diff
+          } else {
+            return min
+          }
+        }, null),
 
+    [data]
+  )
   const fixedWidth = minDelta * width
-
   if (Array.isArray(color) && color.length !== data.length) {
     throw new Error(
       `Unexpected color array provided. Expected length ${data.length}, received length ${color.length}`
@@ -44,23 +47,25 @@ const Bar = ({
         const lower = Math.min(...varyingPositions)
         const upper = Math.max(...varyingPositions)
 
-        const rectProps = {
-          x: `${fixedPosition - fixedWidth / 2}`,
-          y: `${lower}`,
-          width: fixedWidth,
-          height: `${upper - lower}`,
+        const position = [`${fixedPosition - fixedWidth / 2}`, `${lower}`] // x, y
+        const dimensions = [fixedWidth, `${upper - lower}`] // width, height
+
+        if (flipped) {
+          position.reverse()
+          dimensions.reverse()
         }
+
+        const [x, y] = position
+        const [width, height] = dimensions
+
         const colorString = typeof color === 'string' ? color : color[i]
         const fill = theme.rawColors[colorString] || colorString
 
         return (
-          <rect
+          <path
             key={i}
             {...props}
-            x={flipped ? rectProps.y : rectProps.x}
-            y={flipped ? rectProps.x : rectProps.y}
-            width={flipped ? rectProps.height : rectProps.width}
-            height={flipped ? rectProps.width : rectProps.height}
+            d={`M ${x} ${y} h ${width} v ${height} h -${width} Z`}
             fill={fill}
             stroke='none'
           />
