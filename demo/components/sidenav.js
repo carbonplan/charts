@@ -92,17 +92,17 @@ const Sidenav = ({ active, expanded }) => {
               </Box>
               <Box sx={{ my: [2] }}>
                 {contents[d].map((e) => {
-                  const href = '/' + e.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase())
+                  const normalizedName =  e.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase())
                   return (
                     <Link
                       key={e}
-                      href={href}
+                      href={'/' + normalizedName}
                       sx={{
                         width: 'fit-content',
                         display: 'block',
                         textDecoration: 'none',
                         color:
-                          e.toLowerCase() === active ? 'primary' : 'secondary',
+                          normalizedName === active ? 'primary' : 'secondary',
                         '&:hover': {
                           color: 'primary',
                         },

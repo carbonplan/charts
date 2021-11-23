@@ -151,4 +151,4 @@ This is a simple bar chart.
 ```
 
 
-export default ({ children }) => <Section name='bar'>{children}</Section>
+export default ({ children }) => <Section name='stacked-bar'>{children}</Section>
