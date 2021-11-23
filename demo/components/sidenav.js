@@ -92,10 +92,11 @@ const Sidenav = ({ active, expanded }) => {
               </Box>
               <Box sx={{ my: [2] }}>
                 {contents[d].map((e) => {
+                  const href = '/' + e.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase())
                   return (
                     <Link
                       key={e}
-                      href={'/' + e.toLowerCase()}
+                      href={href}
                       sx={{
                         width: 'fit-content',
                         display: 'block',
