@@ -80,11 +80,11 @@ const StackedBar = ({ data, color = 'primary', range, ...props }) => {
       {bars.map((bar, i) => {
         return (
           <Bar
-            {...props}
             key={i}
             data={bar}
             color={colors[i]}
             fillOpacity={opacities[i]}
+            {...props}
           />
         )
       })}

@@ -21,11 +21,10 @@ const Rect = ({ x, y, color = 'primary', ...props }) => {
   const v = _y(y[0]) - _y(y[0] + height)
   return (
     <path
-      key={i}
-      {...props}
       d={`M ${_x(x[0])} ${_y(y[1])} h ${h} v ${v} h -${h} Z`}
       fill={theme.rawColors[color] || color}
       stroke='none'
+      {...props}
     />
   )
 }

@@ -65,10 +65,10 @@ const Bar = ({
         return (
           <path
             key={i}
-            {...props}
             d={`M ${x} ${y} h ${width} v ${height} h -${width} Z`}
             fill={fill}
             stroke='none'
+            {...props}
           />
         )
       })}
