@@ -63,6 +63,7 @@ const AxisLabel = ({
             width: `calc(100% - ${apl + pl + pr + apr}px)`,
             textAlign: align,
             ...styles.label,
+            ...sx,
           }}
         >
           <Flex
@@ -98,6 +99,7 @@ const AxisLabel = ({
             height: `calc(100% - ${apt + pt + pb + apb}px)`,
             textAlign: align,
             ...styles.label,
+            ...sx,
           }}
         >
           <Box
