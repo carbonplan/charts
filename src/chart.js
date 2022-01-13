@@ -15,6 +15,7 @@ export const Chart = ({
   log = false,
   logx = false,
   logy = false,
+  clamp = true,
   children,
 }) => {
   const { left: pl = 70, right: pr = 0, top: pt = 0, bottom: pb = 50 } = padding
@@ -35,14 +36,14 @@ export const Chart = ({
 
   if (Array.isArray(x)) {
     const xBaseScale = logx ? scaleLog : scaleLinear
-    x_ = x ? xBaseScale().domain(x).range([0, 100]).clamp(true) : null
+    x_ = x ? xBaseScale().domain(x).range([0, 100]).clamp(clamp) : null
   } else {
     x_ = x
   }
 
   if (Array.isArray(y)) {
     const yBaseScale = logy ? scaleLog : scaleLinear
-    y_ = y ? yBaseScale().domain(y).range([100, 0]).clamp(true) : null
+    y_ = y ? yBaseScale().domain(y).range([100, 0]).clamp(clamp) : null
   } else {
     y_ = y
   }
