@@ -2,9 +2,23 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import Point from './point'
 
-const Label = ({ x, y, children, align='left', verticalAlign='top', width, sx }) => {
+const Label = ({
+  x,
+  y,
+  children,
+  align = 'left',
+  verticalAlign = 'top',
+  width,
+  sx,
+}) => {
   return (
-    <Point x={x} y={y} width={width} align={align} verticalAlign={verticalAlign}>
+    <Point
+      x={x}
+      y={y}
+      width={width}
+      align={align}
+      verticalAlign={verticalAlign}
+    >
       <Box
         sx={{
           fontFamily: 'mono',

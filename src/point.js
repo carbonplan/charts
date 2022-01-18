@@ -1,17 +1,28 @@
 import React from 'react'
 import { useChart } from './chart'
 
-const Point = ({ x, y, children, align='left', verticalAlign='top', width }) => {
+const Point = ({
+  x,
+  y,
+  children,
+  align = 'left',
+  verticalAlign = 'top',
+  width,
+}) => {
   const { x: _x, y: _y, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
   let position, verticalPosition
 
   if (!['left', 'right', 'center'].includes(align)) {
-    throw new Error(`'${align}' is not a recognized alignment, must be left, right, or center`)
+    throw new Error(
+      `'${align}' is not a recognized alignment, must be left, right, or center`
+    )
   }
 
   if (!['top', 'bottom'].includes(verticalAlign)) {
-    throw new Error(`'${verticalAlign}' is not a recognized vertical alignment, must be top or bottom`)
+    throw new Error(
+      `'${verticalAlign}' is not a recognized vertical alignment, must be top or bottom`
+    )
   }
 
   if (align === 'center' && !width) {
@@ -26,8 +37,8 @@ const Point = ({ x, y, children, align='left', verticalAlign='top', width }) => 
 
   if (align === 'center') {
     position = {
-      left: `${_x(x - width/2)}%`,
-      right: `${100 - _x(x + width/2)}%`,
+      left: `${_x(x - width / 2)}%`,
+      right: `${100 - _x(x + width / 2)}%`,
     }
   }
 
@@ -63,7 +74,7 @@ const Point = ({ x, y, children, align='left', verticalAlign='top', width }) => 
         style={{
           position: 'absolute',
           ...position,
-          ...verticalPosition
+          ...verticalPosition,
         }}
       >
         {children}
