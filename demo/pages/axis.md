@@ -7,9 +7,6 @@ import {
   TickLabels,
   Axis,
   AxisLabel,
-  Plot,
-  Scatter,
-  Circle,
 } from '@carbonplan/charts'
 import { scaleLinear } from 'd3-scale'
 
