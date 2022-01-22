@@ -8,10 +8,13 @@ const Point = ({
   align = 'left',
   verticalAlign = 'top',
   width,
+  height,
 }) => {
   const { x: _x, y: _y, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
 
-  let position, verticalPosition
+  let position,
+    verticalPosition,
+    flexStyles = {}
 
   if (!['left', 'right', 'center'].includes(align)) {
     throw new Error(
@@ -19,7 +22,7 @@ const Point = ({
     )
   }
 
-  if (!['top', 'bottom'].includes(verticalAlign)) {
+  if (!['top', 'middle', 'bottom'].includes(verticalAlign)) {
     throw new Error(
       `'${verticalAlign}' is not a recognized vertical alignment, must be top or bottom`
     )
@@ -27,6 +30,10 @@ const Point = ({
 
   if (align === 'center' && !width) {
     throw new Error(`center alignment requires specifying a width`)
+  }
+
+  if (verticalAlign === 'middle' && !height) {
+    throw new Error(`middle vertical alignment requires specifying a height`)
   }
 
   if (align === 'left') {
@@ -54,6 +61,19 @@ const Point = ({
     }
   }
 
+  if (verticalAlign === 'middle') {
+    verticalPosition = {
+      top: `${_y(y + height / 2)}%`,
+      bottom: `${100 - _y(y - height / 2)}%`,
+    }
+    flexStyles = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignContent: 'center',
+    }
+  }
+
   if (verticalAlign === 'bottom') {
     verticalPosition = {
       bottom: `${100 - _y(y)}%`,
@@ -75,6 +95,7 @@ const Point = ({
           position: 'absolute',
           ...position,
           ...verticalPosition,
+          ...flexStyles,
         }}
       >
         {children}
