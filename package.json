@@ -1,6 +1,6 @@
 {
   "name": "@carbonplan/charts",
-  "version": "2.5.0-develop.1",
+  "version": "2.5.0",
   "description": "themeable reusable responsive web charts",
   "main": "dst/index.js",
   "module": "dst/index.esm.js",
@@ -27,6 +27,7 @@
   "files": [
     "dst"
   ],
+  "prettier": "@carbonplan/prettier",
   "homepage": "https://github.com/carbonplan/charts#readme",
   "peerDependencies": {
     "react": "^16.14.0 || ^17.0.2",
@@ -34,6 +35,7 @@
     "theme-ui": ">=0.10.0"
   },
   "devDependencies": {
+    "@carbonplan/prettier": "1.1.0",
     "microbundle": "^0.13.0",
     "prettier": "2.2.1",
     "rimraf": "2.6.3"
