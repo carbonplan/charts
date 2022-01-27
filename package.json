@@ -35,9 +35,9 @@
     "theme-ui": ">=0.10.0"
   },
   "devDependencies": {
-    "@carbonplan/prettier": "1.1.0",
+    "@carbonplan/prettier": "^1.2.0",
     "microbundle": "^0.13.0",
-    "prettier": "2.2.1",
+    "prettier": "2.5.1",
     "rimraf": "2.6.3"
   },
   "dependencies": {
