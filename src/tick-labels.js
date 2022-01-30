@@ -6,7 +6,7 @@ import getTicks from './utils/get-ticks'
 const styles = {
   tick: {
     position: 'absolute',
-    fontSize: [0],
+    fontSize: [0, 0, 0, 1],
     fontFamily: 'mono',
     letterSpacing: 'mono',
     color: 'secondary',
