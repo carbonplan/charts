@@ -58,7 +58,7 @@ const AxisLabel = ({
         <Box
           sx={{
             position: 'absolute',
-            bottom: `0`,
+            bottom: [`0px`, `0px`, `0px`, `-3px`],
             left: `${apl + pl + (align === 'right' ? 2 : 0)}px`,
             width: `calc(100% - ${apl + pl + pr + apr}px)`,
             textAlign: align,
