@@ -6,7 +6,7 @@ import Arrow from './arrow'
 const styles = {
   label: {
     position: 'absolute',
-    fontSize: [0],
+    fontSize: [0, 0, 0, 1],
     fontFamily: 'mono',
     letterSpacing: 'mono',
     color: 'primary',
@@ -58,7 +58,7 @@ const AxisLabel = ({
         <Box
           sx={{
             position: 'absolute',
-            bottom: `0`,
+            bottom: [`0px`, `0px`, `0px`, `-4px`],
             left: `${apl + pl + (align === 'right' ? 2 : 0)}px`,
             width: `calc(100% - ${apl + pl + pr + apr}px)`,
             textAlign: align,

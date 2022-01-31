@@ -17,7 +17,7 @@ const Label = ({ x, y, children, align, verticalAlign, width, height, sx }) => {
           fontFamily: 'mono',
           letterSpacing: 'mono',
           textTransform: 'uppercase',
-          fontSize: [0],
+          fontSize: [0, 0, 0, 1],
           color: 'secondary',
           textAlign: align,
           ...sx,

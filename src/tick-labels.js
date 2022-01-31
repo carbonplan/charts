@@ -6,7 +6,7 @@ import getTicks from './utils/get-ticks'
 const styles = {
   tick: {
     position: 'absolute',
-    fontSize: [0],
+    fontSize: [0, 0, 0, 1],
     fontFamily: 'mono',
     letterSpacing: 'mono',
     color: 'secondary',
@@ -24,8 +24,19 @@ const VerticalTickLabels = ({
   sx,
 }) => {
   let position
-  if (top) position = { bottom: `${padding}px` }
-  if (bottom) position = { top: `${padding}px` }
+  if (top)
+    position = {
+      bottom: [
+        `${padding}px`,
+        `${padding}px`,
+        `${padding}px`,
+        `${padding + 1}px`,
+      ],
+    }
+  if (bottom)
+    position = {
+      top: [`${padding}px`, `${padding}px`, `${padding}px`, `${padding + 1}px`],
+    }
   return values.map((d, i) => {
     return (
       <Box
@@ -64,7 +75,7 @@ const HorizontalTickLabels = ({
         key={d}
         sx={{
           ...styles.tick,
-          top: `${y(d)}%`,
+          top: [`${y(d)}%`, `${y(d)}%`, `${y(d)}%`, `calc(${y(d)}% + 1px)`],
           right: '0',
           transform: 'translateY(-50%)',
           ...position,
