@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
 import Arrow from './arrow'
-import useResponsiveStyles from './utils/use-responsive-styles'
+import useChartPadding from './utils/use-chart-padding'
 
 const styles = {
   label: {
@@ -26,11 +26,11 @@ const AxisLabel = ({
   arrow = true,
   align = 'right',
 }) => {
-  const bottomSx = useResponsiveStyles(({ apl, pl, pr, apr }) => ({
+  const bottomSx = useChartPadding(({ apl, pl, pr, apr }) => ({
     left: `${apl + pl + (align === 'right' ? 2 : 0)}px`,
     width: `calc(100% - ${apl + pl + pr + apr}px)`,
   }))
-  const leftSx = useResponsiveStyles(({ apb, pb, apt, pt }) => ({
+  const leftSx = useChartPadding(({ apb, pb, apt, pt }) => ({
     bottom: `${apb + pb + (align === 'right' ? 2 : 0)}px`,
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
   }))

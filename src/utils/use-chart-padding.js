@@ -2,7 +2,7 @@ import { useChart } from '../chart'
 
 const KEYS = ['pl', 'pr', 'pt', 'pb', 'apl', 'apr', 'apt', 'apb']
 
-const getResponsiveStyles = (functionalSx, rawValues) => {
+const getChartPadding = (functionalSx, rawValues) => {
   const breakpointValues = KEYS.reduce(
     (accum, key) => {
       const rawValue = rawValues[key]
@@ -25,17 +25,22 @@ const getResponsiveStyles = (functionalSx, rawValues) => {
     [{}, {}, {}, {}]
   )
 
-  return Object.keys(functionalSx).reduce((accum, key) => {
-    const f = functionalSx[key]
-    accum[key] = breakpointValues.map((values) => f(values))
+  const sxKeys = Object.keys(functionalSx({}))
+
+  return breakpointValues.reduce((accum, values, i) => {
+    const result = functionalSx(values)
+    sxKeys.map((key) => {
+      accum[key] ||= []
+      accum[key].push(result[key])
+    })
     return accum
   }, {})
 }
 
-const useResponsiveStyles = (functionalSx) => {
+const useChartPadding = (functionalSx) => {
   const chart = useChart()
 
-  return getResponsiveStyles(functionalSx, chart)
+  return getChartPadding(functionalSx, chart)
 }
 
-export default useResponsiveStyles
+export default useChartPadding

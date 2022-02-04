@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from 'theme-ui'
-import useResponsiveStyles from './utils/use-responsive-styles'
+import useChartPadding from './utils/use-chart-padding'
 
 const styles = {
   axis: {
@@ -12,22 +12,22 @@ const styles = {
 }
 
 const Axis = ({ left, right, top, bottom, sx }) => {
-  const leftSx = useResponsiveStyles(({ apt, pt, pb, apb, pl }) => ({
+  const leftSx = useChartPadding(({ apt, pt, pb, apb, pl }) => ({
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
     left: `${pl}px`,
     top: `${apt + pt}px`,
   }))
-  const rightSx = useResponsiveStyles(({ apt, pt, pb, apb, pr }) => ({
+  const rightSx = useChartPadding(({ apt, pt, pb, apb, pr }) => ({
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
     right: `${pr}px`,
     top: `${apt + pt}px`,
   }))
-  const bottomSx = useResponsiveStyles(({ apl, pl, pb, apr, pr }) => ({
+  const bottomSx = useChartPadding(({ apl, pl, pb, apr, pr }) => ({
     width: `calc(100% - ${apl + pl + pr + apr}px)`,
     bottom: `${pb - 1}px`,
     left: `${apl + pl}px`,
   }))
-  const topSx = useResponsiveStyles(({ apl, pl, pr, apr, pt }) => ({
+  const topSx = useChartPadding(({ apl, pl, pr, apr, pt }) => ({
     width: `calc(100% - ${apl + pl + pr + apr}px)`,
     top: `${pt}px`,
     left: `${apl + pl}px`,

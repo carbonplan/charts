@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box } from 'theme-ui'
-import useResponsiveStyles from './utils/use-responsive-styles'
+import useChartPadding from './utils/use-chart-padding'
 
 const Plot = ({ children, sx, mode = 'svg', square = false }) => {
-  const responsiveSx = useResponsiveStyles(
+  const responsiveSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
       height: `calc(100% - ${apt + pt + pb + apb}px)`,
       width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 import { useChart } from './chart'
-import useResponsiveStyles from './utils/use-responsive-styles'
+import useChartPadding from './utils/use-chart-padding'
 
 const Point = ({
   x,
@@ -13,7 +13,7 @@ const Point = ({
   height,
 }) => {
   const { x: _x, y: _y } = useChart()
-  const responsiveSx = useResponsiveStyles(
+  const responsiveSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
       height: `calc(100% - ${apt + pt + pb + apb}px)`,
       width: `calc(100% - ${apl + pl + pr + apr}px)`,

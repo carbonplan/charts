@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
-import useResponsiveStyles from './utils/use-responsive-styles'
+import useChartPadding from './utils/use-chart-padding'
 
 const styles = {
   grid: {
@@ -50,7 +50,7 @@ const HorizontalGrid = ({ values, y, sx }) => {
 
 const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
   const { x, y, logx, logy } = useChart()
-  const verticalSx = useResponsiveStyles(
+  const verticalSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
       height: `calc(100% - ${apt + pt + pb + apb}px)`,
       width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
@@ -58,7 +58,7 @@ const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
       top: `${apt + pt}px`,
     })
   )
-  const horizontalSx = useResponsiveStyles(
+  const horizontalSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
       height: `calc(100% - ${apt + pt + pb + apb}px)`,
       width: `calc(100% - ${apl + pl + pr + apr}px)`,
