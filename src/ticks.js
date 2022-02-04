@@ -2,6 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
+import useResponsiveStyles from './utils/use-responsive-styles'
 
 const styles = {
   tick: {
@@ -68,7 +69,31 @@ const Ticks = ({
   padding = 0,
   sx,
 }) => {
-  const { x, y, logx, logy, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
+  const { x, y, logx, logy } = useChart()
+
+  const leftSx = useResponsiveStyles(({ apt, pt, apt, pt, pb, apb, pl }) => ({
+    top: `${apt + pt}px`,
+    height: `calc(100% - ${apt + pt + pb + apb}px)`,
+    width: `${pl + 1}px`,
+  }))
+
+  const rightSx = useResponsiveStyles(({ apt, pt, pb, apb, pr }) => ({
+    top: `${apt + pt}px`,
+    height: `calc(100% - ${apt + pt + pb + apb}px)`,
+    width: `${pr}px`,
+    left: `calc(100% - ${pr + 1}px)`,
+  }))
+
+  const bottomSx = useResponsiveStyles(({ pb, apl, pl, pr, apr }) => ({
+    height: `${pb}px`,
+    width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
+    left: `${apl + pl}px`,
+  }))
+  const topSx = useResponsiveStyles(({ pt, apl, pl, pr, apr }) => ({
+    height: `${pt}px`,
+    width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
+    left: `${apl + pl}px`,
+  }))
 
   values = getTicks({ values, count, logx, logy, x, y })
 
@@ -77,10 +102,8 @@ const Ticks = ({
       {left && (
         <Box
           sx={{
+            ...leftSx,
             position: 'absolute',
-            top: `${apt + pt}px`,
-            height: `calc(100% - ${apt + pt + pb + apb}px)`,
-            width: `${pl + 1}px`,
             left: 0,
           }}
         >
@@ -97,11 +120,8 @@ const Ticks = ({
       {right && (
         <Box
           sx={{
+            ...rightSx,
             position: 'absolute',
-            top: `${apt + pt}px`,
-            height: `calc(100% - ${apt + pt + pb + apb}px)`,
-            width: `${pr}px`,
-            left: `calc(100% - ${pr + 1}px)`,
           }}
         >
           <HorizontalTicks
@@ -117,10 +137,8 @@ const Ticks = ({
       {bottom && (
         <Box
           sx={{
+            ...bottomSx,
             position: 'absolute',
-            height: `${pb}px`,
-            width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
-            left: `${apl + pl}px`,
             bottom: '0px',
           }}
         >
@@ -137,10 +155,8 @@ const Ticks = ({
       {top && (
         <Box
           sx={{
+            ...topSx,
             position: 'absolute',
-            height: `${pt}px`,
-            width: `calc(100% - ${apl + pl + pr + apr + 1}px)`,
-            left: `${apl + pl}px`,
             top: `1px`,
           }}
         >
