@@ -71,7 +71,7 @@ const Ticks = ({
 }) => {
   const { x, y, logx, logy } = useChart()
 
-  const leftSx = useResponsiveStyles(({ apt, pt, apt, pt, pb, apb, pl }) => ({
+  const leftSx = useResponsiveStyles(({ apt, pt, pb, apb, pl }) => ({
     top: `${apt + pt}px`,
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
     width: `${pl + 1}px`,

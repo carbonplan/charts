@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box } from 'theme-ui'
 import { useChart } from './chart'
 import useResponsiveStyles from './utils/use-responsive-styles'
 
@@ -90,14 +91,14 @@ const Point = ({
   }
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         position: 'absolute',
         ...responsiveSx,
       }}
     >
-      <div
-        style={{
+      <Box
+        sx={{
           position: 'absolute',
           ...position,
           ...verticalPosition,
@@ -105,8 +106,8 @@ const Point = ({
         }}
       >
         {children}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

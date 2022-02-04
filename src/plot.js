@@ -13,8 +13,8 @@ const Plot = ({ children, sx, mode = 'svg', square = false }) => {
   )
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         ...responsiveSx,
         position: 'absolute',
         transform: `translate(0.5px, 0.5px)`,
@@ -35,7 +35,7 @@ const Plot = ({ children, sx, mode = 'svg', square = false }) => {
           {children}
         </Box>
       )}
-    </div>
+    </Box>
   )
 }
 
