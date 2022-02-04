@@ -11,7 +11,9 @@ const getChartPadding = (functionalSx, rawValues) => {
         if (rawValue.length === 4) {
           arrayValue = rawValue
         } else {
-          throw new Error('can only handle 4 breakpoints')
+          arrayValue = new Array(4)
+            .fill(null)
+            .map((_, i) => rawValue[i] ?? rawValue[rawValue.length - 1])
         }
       } else {
         arrayValue = new Array(4).fill(rawValue)
