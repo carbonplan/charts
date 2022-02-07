@@ -1,5 +1,7 @@
 import React from 'react'
+import { Box } from 'theme-ui'
 import { useChart } from './chart'
+import useChartPadding from './utils/use-chart-padding'
 
 const Point = ({
   x,
@@ -10,7 +12,15 @@ const Point = ({
   width,
   height,
 }) => {
-  const { x: _x, y: _y, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
+  const { x: _x, y: _y } = useChart()
+  const responsiveSx = useChartPadding(
+    ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
+      height: `calc(100% - ${apt + pt + pb + apb}px)`,
+      width: `calc(100% - ${apl + pl + pr + apr}px)`,
+      left: `${apl + pl}px`,
+      top: `${apt + pt}px`,
+    })
+  )
 
   let position,
     verticalPosition,
@@ -81,17 +91,14 @@ const Point = ({
   }
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         position: 'absolute',
-        height: `calc(100% - ${apt + pt + pb + apb}px)`,
-        width: `calc(100% - ${apl + pl + pr + apr}px)`,
-        left: `${apl + pl}px`,
-        top: `${apt + pt}px`,
+        ...responsiveSx,
       }}
     >
-      <div
-        style={{
+      <Box
+        sx={{
           position: 'absolute',
           ...position,
           ...verticalPosition,
@@ -99,8 +106,8 @@ const Point = ({
         }}
       >
         {children}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

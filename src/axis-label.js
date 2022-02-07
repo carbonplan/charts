@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from 'theme-ui'
-import { useChart } from './chart'
 import Arrow from './arrow'
+import useChartPadding from './utils/use-chart-padding'
 
 const styles = {
   label: {
@@ -26,8 +26,14 @@ const AxisLabel = ({
   arrow = true,
   align = 'right',
 }) => {
-  const { x, y, pl, pr, pt, pb, apl, apr, apt, apb } = useChart()
-
+  const bottomSx = useChartPadding(({ apl, pl, pr, apr }) => ({
+    left: `${apl + pl + (align === 'right' ? 2 : 0)}px`,
+    width: `calc(100% - ${apl + pl + pr + apr}px)`,
+  }))
+  const leftSx = useChartPadding(({ apb, pb, apt, pt }) => ({
+    bottom: `${apb + pb + (align === 'right' ? 2 : 0)}px`,
+    height: `calc(100% - ${apt + pt + pb + apb}px)`,
+  }))
   const alignToFlexVertical = {
     left: 'flex-end',
     right: 'flex-start',
@@ -59,9 +65,8 @@ const AxisLabel = ({
           sx={{
             position: 'absolute',
             bottom: [`0px`, `0px`, `0px`, `-4px`],
-            left: `${apl + pl + (align === 'right' ? 2 : 0)}px`,
-            width: `calc(100% - ${apl + pl + pr + apr}px)`,
             textAlign: align,
+            ...bottomSx,
             ...styles.label,
             ...sx,
           }}
@@ -95,9 +100,8 @@ const AxisLabel = ({
           sx={{
             position: 'absolute',
             left: '-3px',
-            bottom: `${apb + pb + (align === 'right' ? 2 : 0)}px`,
-            height: `calc(100% - ${apt + pt + pb + apb}px)`,
             textAlign: align,
+            ...leftSx,
             ...styles.label,
             ...sx,
           }}
