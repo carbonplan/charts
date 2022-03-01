@@ -20,6 +20,12 @@ const Donut = ({
     .outerRadius(outerRadius)
   const opacity = scaleLinear().domain(domain).range(range)
 
+  if (Array.isArray(color) && color.length !== data.length) {
+    throw new Error(
+      `Unexpected color array provided. Expected length ${data.length}, received length ${color.length}`
+    )
+  }
+
   return (
     <g transform='translate(50,50)'>
       {arcs.map((d, i) => {
@@ -30,8 +36,8 @@ const Donut = ({
             d={generator(d)}
             sx={{
               stroke: 'none',
-              fillOpacity: opacity(d.index),
-              fill: color,
+              fillOpacity: typeof color === 'string' ? opacity(d.index) : 1,
+              fill: typeof color === 'string' ? color : color[i],
               ...sx,
             }}
           />
