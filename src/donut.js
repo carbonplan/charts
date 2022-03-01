@@ -2,28 +2,27 @@ import React, { memo } from 'react'
 import { arc, pie } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { Box } from 'theme-ui'
+import { getPropAtIndex } from './utils'
 
 const Donut = ({
   data,
-  domain,
-  range,
   innerRadius = 0.3,
   outerRadius = 50,
+  opacity,
   color = 'primary',
   sx,
 }) => {
-  domain = domain || [0, data.length - 1]
-  range = range || [0.3, 0.9]
   const arcs = pie()(data)
   const generator = arc()
     .innerRadius(innerRadius * 100)
     .outerRadius(outerRadius)
-  const opacity = scaleLinear().domain(domain).range(range)
 
-  if (Array.isArray(color) && color.length !== data.length) {
-    throw new Error(
-      `Unexpected color array provided. Expected length ${data.length}, received length ${color.length}`
-    )
+  let defaultOpacity
+  if (opacity == null) {
+    const opacityScale = scaleLinear()
+      .domain([0, data.length - 1])
+      .range([0.3, 0.9])
+    defaultOpacity = (d, i) => opacityScale(i)
   }
 
   return (
@@ -36,8 +35,16 @@ const Donut = ({
             d={generator(d)}
             sx={{
               stroke: 'none',
-              fillOpacity: typeof color === 'string' ? opacity(d.index) : 1,
-              fill: typeof color === 'string' ? color : color[i],
+              fillOpacity: getPropAtIndex(
+                'opacity',
+                opacity ?? defaultOpacity,
+                data,
+                i,
+                { index: d.index }
+              ),
+              fill: getValueAtIndex('color', color, data, i, {
+                index: d.index,
+              }),
               ...sx,
             }}
           />
