@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { arc, pie } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { Box } from 'theme-ui'
-import { getPropAtIndex } from './utils'
+import { getPropAtIndex, getColorAtIndex } from './utils'
 
 const Donut = ({
   data,
@@ -42,7 +42,7 @@ const Donut = ({
                 i,
                 { index: d.index }
               ),
-              fill: getValueAtIndex('color', color, data, i, {
+              fill: getColorAtIndex(color, data, i, {
                 index: d.index,
               }),
               ...sx,

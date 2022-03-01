@@ -1,8 +1,2 @@
-import getTicks from './get-ticks'
-import { getPropAtIndex, getColorAtIndex } from './index-getters'
-
-export default {
-  getPropAtIndex,
-  getColorAtIndex,
-  getTicks,
-}
+export { default as getTicks } from './get-ticks'
+export { getPropAtIndex, getColorAtIndex } from './index-getters'
