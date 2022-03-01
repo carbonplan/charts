@@ -10,15 +10,42 @@ import {
   StackedBar,
 } from '@carbonplan/charts'
 
-export const data = Array(11)
-  .fill(null)
-  .map((_, i) => [i, 0, (i + 1) * 2, (i + 1) * 5, (i + 1) * 9])
+export const data = [
+  [0, 0, 2, 5, 9],
+  [1, 0, 4, 10, 18],
+  [2, 0, 6, 15, 27],
+  [3, 0, 8, 20, 36],
+  [4, 0, 10, 25, 45],
+  [5, 0, 12, 30, 54],
+  [6, 0, 14, 35, 63],
+  [7, 0, 16, 40, 72],
+  [8, 0, 18, 45, 81],
+  [9, 0, 20, 50, 90],
+  [10, 0, 22, 55, 99],
+]
 export const getRandomColor = () =>
   ['pink', 'red', 'orange', 'yellow', 'green'][Math.floor(Math.random() * 5)]
 
 # StackedBar
 
 This is a simple bar chart.
+
+```js
+const data = [
+// x,  y0, y1, y2, y3
+  [0,  0,  2,  5,  9],
+  [1,  0,  4,  10, 18],
+  [2,  0,  6,  15, 27],
+  [3,  0,  8,  20, 36],
+  [4,  0,  10, 25, 45],
+  [5,  0,  12, 30, 54],
+  [6,  0,  14, 35, 63],
+  [7,  0,  16, 40, 72],
+  [8,  0,  18, 45, 81],
+  [9,  0,  20, 50, 90],
+  [10, 0,  22, 55, 99],
+]
+```
 
 <Box sx={{ width: '100%', height: '400px' }}>
   <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
