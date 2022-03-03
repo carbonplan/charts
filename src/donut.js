@@ -10,9 +10,12 @@ const Donut = ({
   outerRadius = 50,
   opacity,
   color = 'primary',
+  preserveOrder = false,
   sx,
 }) => {
-  const arcs = pie()(data)
+  const arcs = pie()
+    .sort(preserveOrder ? (a, b) => a.i - b.i : null)
+    .value((d) => d.value)(data.map((d, i) => ({ value: d, i })))
   const generator = arc()
     .innerRadius(innerRadius * 100)
     .outerRadius(outerRadius)
