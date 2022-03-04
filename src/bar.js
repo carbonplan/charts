@@ -1,12 +1,14 @@
 import React, { memo, useMemo } from 'react'
 import { useThemeUI } from 'theme-ui'
 import { useChart } from './chart'
+import { getColorAtIndex, getPropAtIndex } from './utils'
 
 const Bar = ({
   data,
   width = 0.8,
   direction = 'vertical',
   color = 'primary',
+  opacity = 1,
   ...props
 }) => {
   const { x: _x, y: _y } = useChart()
@@ -33,11 +35,6 @@ const Bar = ({
     [xValues.join(',')]
   )
   const fixedWidth = minDelta * width
-  if (Array.isArray(color) && color.length !== data.length) {
-    throw new Error(
-      `Unexpected color array provided. Expected length ${data.length}, received length ${color.length}`
-    )
-  }
 
   return (
     <>
@@ -59,14 +56,16 @@ const Bar = ({
         const [x, y] = position
         const [width, height] = dimensions
 
-        const colorString = typeof color === 'string' ? color : color[i]
-        const fill = theme.rawColors[colorString] || colorString
-
         return (
           <path
             key={i}
             d={`M ${x} ${y} h ${width} v ${height} h -${width} Z`}
-            fill={fill}
+            fill={getColorAtIndex(color, data, i, {
+              colors: theme.rawColors,
+            })}
+            fillOpacity={getPropAtIndex(opacity, data, i, {
+              propName: 'opacity',
+            })}
             stroke='none'
             {...props}
           />

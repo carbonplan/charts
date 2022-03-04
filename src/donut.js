@@ -2,23 +2,35 @@ import React, { memo } from 'react'
 import { arc, pie } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { Box } from 'theme-ui'
+import { getPropAtIndex, getColorAtIndex } from './utils'
 
 const Donut = ({
   data,
-  domain,
-  range,
   innerRadius = 0.3,
   outerRadius = 50,
+  opacity,
   color = 'primary',
+  preserveOrder = false,
   sx,
 }) => {
-  domain = domain || [0, data.length - 1]
-  range = range || [0.3, 0.9]
-  const arcs = pie()(data)
+  const arcs = pie()
+    .sort(preserveOrder ? (a, b) => a.i - b.i : null)
+    .value((d) => d.value)(data.map((d, i) => ({ value: d, i })))
   const generator = arc()
     .innerRadius(innerRadius * 100)
     .outerRadius(outerRadius)
-  const opacity = scaleLinear().domain(domain).range(range)
+
+  let defaultOpacity
+  if (opacity == null) {
+    if (Array.isArray(color)) {
+      defaultOpacity = 1
+    } else {
+      const opacityScale = scaleLinear()
+        .domain([0, data.length - 1])
+        .range([0.3, 0.9])
+      defaultOpacity = arcs.map((d) => opacityScale(d.index))
+    }
+  }
 
   return (
     <g transform='translate(50,50)'>
@@ -30,8 +42,10 @@ const Donut = ({
             d={generator(d)}
             sx={{
               stroke: 'none',
-              fillOpacity: opacity(d.index),
-              fill: color,
+              fillOpacity: getPropAtIndex(opacity ?? defaultOpacity, data, i, {
+                propName: 'opacity',
+              }),
+              fill: getColorAtIndex(color, data, i),
               ...sx,
             }}
           />

@@ -10,15 +10,42 @@ import {
   StackedBar,
 } from '@carbonplan/charts'
 
-export const data = Array(11)
-  .fill(null)
-  .map((_, i) => [i, 0, (i + 1) * 2, (i + 1) * 5, (i + 1) * 9])
+export const data = [
+  [0, 0, 2, 5, 9],
+  [1, 0, 4, 10, 18],
+  [2, 0, 6, 15, 27],
+  [3, 0, 8, 20, 36],
+  [4, 0, 10, 25, 45],
+  [5, 0, 12, 30, 54],
+  [6, 0, 14, 35, 63],
+  [7, 0, 16, 40, 72],
+  [8, 0, 18, 45, 81],
+  [9, 0, 20, 50, 90],
+  [10, 0, 22, 55, 99],
+]
 export const getRandomColor = () =>
   ['pink', 'red', 'orange', 'yellow', 'green'][Math.floor(Math.random() * 5)]
 
 # StackedBar
 
 This is a simple bar chart.
+
+```js
+const data = [
+  // x,  y0, y1, y2, y3
+  [0, 0, 2, 5, 9],
+  [1, 0, 4, 10, 18],
+  [2, 0, 6, 15, 27],
+  [3, 0, 8, 20, 36],
+  [4, 0, 10, 25, 45],
+  [5, 0, 12, 30, 54],
+  [6, 0, 14, 35, 63],
+  [7, 0, 16, 40, 72],
+  [8, 0, 18, 45, 81],
+  [9, 0, 20, 50, 90],
+  [10, 0, 22, 55, 99],
+]
+```
 
 <Box sx={{ width: '100%', height: '400px' }}>
   <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
@@ -160,6 +187,66 @@ This is a simple bar chart.
       <StackedBar
         data={data}
         color={data.map((d) => d.slice(2).map(() => getRandomColor()))}
+      />
+    </Plot>
+  </Chart>
+</Box>
+```
+
+### Custom opacity
+
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar data={data} color='purple' opacity={[0.1, 0.2, 0.3]} />
+    </Plot>
+  </Chart>
+</Box>
+
+```jsx
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar data={data} color='purple' opacity={[0.1, 0.2, 0.3]} />
+    </Plot>
+  </Chart>
+</Box>
+```
+
+#### Completely customized opacity
+
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar
+        data={data}
+        color='purple'
+        opacity={data.map((d) => d.slice(2).map((_, i) => Math.random()))}
+      />
+    </Plot>
+  </Chart>
+</Box>
+
+```jsx
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar
+        data={data}
+        color='purple'
+        opacity={data.map((d) => d.slice(2).map(() => Math.random()))}
       />
     </Plot>
   </Chart>
