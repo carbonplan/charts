@@ -88,7 +88,7 @@ const StackedBar = ({ data, color = 'primary', opacity, ...props }) => {
 
   const { colors, opacities } = useMemo(
     () => getBarColors(color, opacity, bars.length, data.length),
-    [color, bars.length, data.length]
+    [color, opacity, bars.length, data.length]
   )
 
   return (
@@ -99,7 +99,7 @@ const StackedBar = ({ data, color = 'primary', opacity, ...props }) => {
             key={i}
             data={bar}
             color={colors[i]}
-            fillOpacity={opacities[i]}
+            opacity={opacities[i]}
             {...props}
           />
         )

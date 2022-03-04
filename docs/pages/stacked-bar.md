@@ -193,6 +193,67 @@ const data = [
 </Box>
 ```
 
+### Custom opacity
+
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar data={data} color='purple' opacity={[0.1, 0.2, 0.3]} />
+    </Plot>
+  </Chart>
+</Box>
+
+```jsx
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar data={data} color='purple' opacity={[0.1, 0.2, 0.3]} />
+    </Plot>
+  </Chart>
+</Box>
+```
+
+#### Completely customized opacity
+
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar
+        data={data}
+        color='purple'
+        opacity={data.map((d) => d.slice(2).map((_, i) => Math.random()))}
+      />
+    </Plot>
+  </Chart>
+</Box>
+
+```jsx
+<Box sx={{ width: '100%', height: '400px' }}>
+  <Chart x={[-1, 11]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
+    <Ticks left bottom />
+    <TickLabels left bottom />
+    <Axis left bottom />
+    <Plot>
+      <StackedBar
+        data={data}
+        color='purple'
+        opacity={data.map((d) => d.slice(2).map(() => Math.random()))}
+      />
+    </Plot>
+  </Chart>
+</Box>
+```
+
+
 export default ({ children }) => (
   <Section name='stacked-bar'>{children}</Section>
 )

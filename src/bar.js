@@ -1,13 +1,14 @@
 import React, { memo, useMemo } from 'react'
 import { useThemeUI } from 'theme-ui'
 import { useChart } from './chart'
-import { getColorAtIndex } from './utils'
+import { getColorAtIndex, getPropAtIndex } from './utils'
 
 const Bar = ({
   data,
   width = 0.8,
   direction = 'vertical',
   color = 'primary',
+  opacity = 1,
   ...props
 }) => {
   const { x: _x, y: _y } = useChart()
@@ -62,6 +63,7 @@ const Bar = ({
             fill={getColorAtIndex(color, data, i, {
               colors: theme.rawColors,
             })}
+            fillOpacity={getPropAtIndex('opacity', opacity, data, i)}
             stroke='none'
             {...props}
           />
