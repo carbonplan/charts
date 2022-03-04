@@ -63,7 +63,9 @@ const Bar = ({
             fill={getColorAtIndex(color, data, i, {
               colors: theme.rawColors,
             })}
-            fillOpacity={getPropAtIndex('opacity', opacity, data, i)}
+            fillOpacity={getPropAtIndex(opacity, data, i, {
+              propName: 'opacity',
+            })}
             stroke='none'
             {...props}
           />

@@ -22,10 +22,14 @@ const Donut = ({
 
   let defaultOpacity
   if (opacity == null) {
-    const opacityScale = scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0.3, 0.9])
-    defaultOpacity = (d, i) => opacityScale(i)
+    if (Array.isArray(color)) {
+      defaultOpacity = 1
+    } else {
+      const opacityScale = scaleLinear()
+        .domain([0, data.length - 1])
+        .range([0.3, 0.9])
+      defaultOpacity = arcs.map((d) => opacityScale(d.index))
+    }
   }
 
   return (
@@ -38,16 +42,10 @@ const Donut = ({
             d={generator(d)}
             sx={{
               stroke: 'none',
-              fillOpacity: getPropAtIndex(
-                'opacity',
-                opacity ?? defaultOpacity,
-                data,
-                i,
-                { index: d.index }
-              ),
-              fill: getColorAtIndex(color, data, i, {
-                index: d.index,
+              fillOpacity: getPropAtIndex(opacity ?? defaultOpacity, data, i, {
+                propName: 'opacity',
               }),
+              fill: getColorAtIndex(color, data, i),
               ...sx,
             }}
           />
