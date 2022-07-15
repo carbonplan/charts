@@ -167,5 +167,5 @@ This is a simple bar chart.
 ```
 
 export default ({ children }) => (
-  <Section name='stacked-bar'>{children}</Section>
+  <Section name='stackedbar'>{children}</Section>
 )
