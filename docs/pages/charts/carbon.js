@@ -12,7 +12,7 @@ import {
   Scatter,
   Line,
 } from '@carbonplan/charts'
-import tsv from '../data/carbon.js'
+import tsv from '../../data/carbon.js'
 
 let data = tsv.split('\n').map((str) => {
   let [date, _1, avg, _2, trend] = str.split(' ').map(parseFloat)

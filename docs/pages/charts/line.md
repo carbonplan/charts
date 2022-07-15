@@ -1,4 +1,4 @@
-import Section from '../components/section'
+import Section from '../../components/section'
 import { Box } from 'theme-ui'
 import {
   Chart,
@@ -7,13 +7,13 @@ import {
   Ticks,
   TickLabels,
   AxisLabel,
-  Scatter,
+  Line,
 } from '@carbonplan/charts'
 import { scaleLinear } from 'd3-scale'
 
-# Scatter
+# Line
 
-This is a scatter chart.
+This is a line chart.
 
 <Box sx={{ width: '100%', height: '400px' }}>
   <Chart x={[0, 100]} y={[0, 100]} padding={{ left: 60, top: 50 }}>
@@ -23,13 +23,11 @@ This is a scatter chart.
     <AxisLabel left>Variable one</AxisLabel>
     <AxisLabel bottom>Variable two</AxisLabel>
     <Plot>
-      <Scatter
-        size={10}
-        x={(d) => d.x}
-        y={(d) => d.y}
+      <Line
         data={[
-          { x: 100, y: 50 },
-          { x: 0, y: 100 },
+          [100, 50],
+          [40, 60],
+          [0, 100],
         ]}
       />
     </Plot>
@@ -45,13 +43,11 @@ This is a scatter chart.
     <AxisLabel left>Variable one</AxisLabel>
     <AxisLabel bottom>Variable two</AxisLabel>
     <Plot>
-      <Scatter
-        size={10}
-        x={(d) => d.x}
-        y={(d) => d.y}
+      <Line
         data={[
-          { x: 100, y: 50 },
-          { x: 0, y: 100 },
+          [100, 50],
+          [40, 60],
+          [0, 100],
         ]}
       />
     </Plot>
@@ -59,4 +55,4 @@ This is a scatter chart.
 </Box>
 ```
 
-export default ({ children }) => <Section name='scatter'>{children}</Section>
+export default ({ children }) => <Section name='line'>{children}</Section>

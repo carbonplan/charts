@@ -1,4 +1,4 @@
-import Section from '../components/section'
+import Section from '../../components/section'
 import { Box } from 'theme-ui'
 import { Chart, Plot, Donut } from '@carbonplan/charts'
 

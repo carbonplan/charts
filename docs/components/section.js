@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { Box } from 'theme-ui'
 import * as carbonPlanCharts from '@carbonplan/charts'
-import { Layout, Row, Column, FadeIn, Tray } from '@carbonplan/components'
-import { Code, LiveCode, Pre } from '@carbonplan/prism'
-import Sidenav from './sidenav'
-import { ColorSample, GridSample } from './samples'
+import { LiveCode, Pre } from '@carbonplan/prism'
+import { NavSection } from '@carbonplan/layouts'
+import { contents } from './contents'
 
 const transform = (src) => {
   if (!src.startsWith('()')) {
@@ -18,7 +16,6 @@ const transform = (src) => {
 const scope = {
   ...carbonPlanCharts,
   Box,
-  useState,
 }
 
 const components = {
@@ -34,26 +31,18 @@ const components = {
 }
 
 const Section = ({ children, name }) => {
-  const [expanded, setExpanded] = useState(false)
-
   return (
     <MDXProvider components={components}>
-      <Layout
-        fade={false}
-        settings={{
-          value: expanded,
-          onClick: () => setExpanded((prev) => !prev),
-        }}
+      <NavSection
+        name={name}
+        menu={{ contents: contents, prefix: '/charts' }}
+        title={`${
+          name === 'intro' ? 'Charts' : name[0].toUpperCase() + name.slice(1)
+        } – CarbonPlan`}
+        description={'Documentation for our charting library.'}
       >
-        <Row>
-          <Column start={[1, 1, 2, 2]} width={[4, 4, 2, 2]}>
-            <Sidenav active={name} expanded={expanded} />
-          </Column>
-          <Column start={[1, 2, 5, 5]} width={[6]} sx={{ mb: [8, 8, 9, 10] }}>
-            <FadeIn>{children}</FadeIn>
-          </Column>
-        </Row>
-      </Layout>
+        {children}
+      </NavSection>
     </MDXProvider>
   )
 }

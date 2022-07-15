@@ -1,4 +1,4 @@
-import Section from '../components/section'
+import Section from '../../components/section'
 import { Box } from 'theme-ui'
 import {
   Chart,
@@ -166,6 +166,4 @@ This is a simple bar chart.
 </Box>
 ```
 
-export default ({ children }) => (
-  <Section name='stacked-bar'>{children}</Section>
-)
+export default ({ children }) => <Section name='stackedbar'>{children}</Section>
