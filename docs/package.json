@@ -25,7 +25,7 @@
     "url": "https://github.com/carbonplan/charts/issues"
   },
   "dependencies": {
-    "@carbonplan/charts": "^2.5.0",
+    "@carbonplan/charts": "^2.7.0",
     "@carbonplan/components": "^10.0.0",
     "@carbonplan/prism": "^1.0.3",
     "@carbonplan/theme": "^6.0.1",
