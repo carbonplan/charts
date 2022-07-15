@@ -35,7 +35,7 @@ const Section = ({ children, name }) => {
     <MDXProvider components={components}>
       <NavSection
         name={name}
-        menu={{ contents: contents }}
+        menu={{ contents: contents, prefix: '/charts' }}
         title={`${
           name === 'intro' ? 'Charts' : name[0].toUpperCase() + name.slice(1)
         } – CarbonPlan`}

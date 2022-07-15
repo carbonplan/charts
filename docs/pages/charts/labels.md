@@ -1,4 +1,4 @@
-import Section from '../components/section'
+import Section from '../../components/section'
 import { Box } from 'theme-ui'
 import {
   Chart,
@@ -136,4 +136,4 @@ The vertical alignment is controlled with the `verticalAlign` prop and can be `t
 </Label>
 ```
 
-export default ({ children }) => <Section name='axis'>{children}</Section>
+export default ({ children }) => <Section name='labels'>{children}</Section>
