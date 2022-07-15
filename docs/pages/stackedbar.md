@@ -166,6 +166,4 @@ This is a simple bar chart.
 </Box>
 ```
 
-export default ({ children }) => (
-  <Section name='stackedbar'>{children}</Section>
-)
+export default ({ children }) => <Section name='stackedbar'>{children}</Section>
