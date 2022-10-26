@@ -30,9 +30,9 @@
   "prettier": "@carbonplan/prettier",
   "homepage": "https://github.com/carbonplan/charts#readme",
   "peerDependencies": {
-    "react": "^16.14.0 || ^17.0.2",
-    "react-dom": "^16.14.0 || ^17.0.2",
-    "theme-ui": ">=0.10.0"
+    "react": ">=18",
+    "react-dom": ">=18",
+    "theme-ui": ">=0.15.0"
   },
   "devDependencies": {
     "@carbonplan/prettier": "^1.2.0",
