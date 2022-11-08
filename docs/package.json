@@ -30,11 +30,11 @@
     "@carbonplan/layouts": "^2.4.1",
     "@carbonplan/prism": "^1.0.3",
     "@carbonplan/theme": "^6.0.1",
-    "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/loader": "^2.1.5",
     "@next/mdx": "^10.2.3",
     "d3-scale": "^3.3.0",
     "d3-shape": "^2.1.0",
-    "next": "^11.0.1",
+    "next": "^13.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "theme-ui": "^0.13.1"
