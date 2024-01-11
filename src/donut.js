@@ -11,6 +11,7 @@ const Donut = ({
   outerRadius = 50,
   color = 'primary',
   sx,
+  ...props
 }) => {
   domain = domain || [0, data.length - 1]
   range = range || [0.3, 0.9]
@@ -34,6 +35,7 @@ const Donut = ({
               fill: color,
               ...sx,
             }}
+            {...props}
           />
         )
       })}

@@ -2,7 +2,15 @@ import React, { memo } from 'react'
 import { Box } from 'theme-ui'
 import { useChart } from './chart'
 
-const Scatter = ({ data, x, y, color = 'primary', size = 10, sx }) => {
+const Scatter = ({
+  data,
+  x,
+  y,
+  color = 'primary',
+  size = 10,
+  sx,
+  ...props
+}) => {
   const { x: _x, y: _y } = useChart()
   x = x || ((d) => d[0])
   y = y || ((d) => d[1])
@@ -29,6 +37,7 @@ const Scatter = ({ data, x, y, color = 'primary', size = 10, sx }) => {
         vectorEffect: 'non-scaling-stroke',
         ...sx,
       }}
+      {...props}
     />
   )
 }

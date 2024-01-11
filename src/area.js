@@ -14,7 +14,7 @@ import { area } from 'd3-shape'
  * @param  props.curve - optional curve factory
  * @param  props.sx - optional sx object
  */
-const Area = ({ data, color = 'primary', curve = false, sx }) => {
+const Area = ({ data, color = 'primary', curve = false, sx, ...props }) => {
   const { x: _x, y: _y } = useChart()
 
   let generator = area()
@@ -34,6 +34,7 @@ const Area = ({ data, color = 'primary', curve = false, sx }) => {
         fill: color,
         ...sx,
       }}
+      {...props}
     />
   )
 }
