@@ -11,7 +11,7 @@ const styles = {
   },
 }
 
-const Axis = ({ left, right, top, bottom, sx }) => {
+const Axis = ({ left, right, top, bottom, sx, ...props }) => {
   const leftSx = useChartPadding(({ apt, pt, pb, apb, pl }) => ({
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
     left: `${pl}px`,
@@ -44,6 +44,7 @@ const Axis = ({ left, right, top, bottom, sx }) => {
             ...leftSx,
             ...sx,
           }}
+          {...props}
         />
       )}
       {right && (
@@ -55,6 +56,7 @@ const Axis = ({ left, right, top, bottom, sx }) => {
             ...rightSx,
             ...sx,
           }}
+          {...props}
         />
       )}
       {bottom && (
@@ -66,6 +68,7 @@ const Axis = ({ left, right, top, bottom, sx }) => {
             ...bottomSx,
             ...sx,
           }}
+          {...props}
         />
       )}
       {top && (
@@ -77,6 +80,7 @@ const Axis = ({ left, right, top, bottom, sx }) => {
             ...topSx,
             ...sx,
           }}
+          {...props}
         />
       )}
     </>

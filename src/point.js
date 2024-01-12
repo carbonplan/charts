@@ -11,6 +11,7 @@ const Point = ({
   verticalAlign = 'top',
   width,
   height,
+  ...props
 }) => {
   const { x: _x, y: _y } = useChart()
   const responsiveSx = useChartPadding(
@@ -104,6 +105,7 @@ const Point = ({
           ...verticalPosition,
           ...flexStyles,
         }}
+        {...props}
       >
         {children}
       </Box>

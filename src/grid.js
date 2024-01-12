@@ -14,7 +14,7 @@ const styles = {
   },
 }
 
-const VerticalGrid = ({ values, x, sx }) => {
+const VerticalGrid = ({ values, x, sx, ...props }) => {
   return values.map((d, i) => {
     return (
       <Box
@@ -26,12 +26,13 @@ const VerticalGrid = ({ values, x, sx }) => {
           borderLeftWidth: '1px',
           ...sx,
         }}
+        {...props}
       />
     )
   })
 }
 
-const HorizontalGrid = ({ values, y, sx }) => {
+const HorizontalGrid = ({ values, y, sx, ...props }) => {
   return values.map((d, i) => {
     return (
       <Box
@@ -43,12 +44,13 @@ const HorizontalGrid = ({ values, y, sx }) => {
           width: `calc(100%)`,
           ...sx,
         }}
+        {...props}
       />
     )
   })
 }
 
-const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
+const Grid = ({ horizontal, vertical, count = 5, values, sx, ...props }) => {
   const { x, y, logx, logy } = useChart()
   const verticalSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
@@ -77,7 +79,7 @@ const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
             ...verticalSx,
           }}
         >
-          <VerticalGrid values={values.vertical} x={x} sx={sx} />
+          <VerticalGrid values={values.vertical} x={x} sx={sx} {...props} />
         </Box>
       )}
       {horizontal && (
@@ -87,7 +89,7 @@ const Grid = ({ horizontal, vertical, count = 5, values, sx }) => {
             ...horizontalSx,
           }}
         >
-          <HorizontalGrid bottom values={values.horizontal} y={y} sx={sx} />
+          <HorizontalGrid values={values.horizontal} y={y} sx={sx} {...props} />
         </Box>
       )}
     </>

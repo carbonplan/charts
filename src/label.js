@@ -2,7 +2,17 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import Point from './point'
 
-const Label = ({ x, y, children, align, verticalAlign, width, height, sx }) => {
+const Label = ({
+  x,
+  y,
+  children,
+  align,
+  verticalAlign,
+  width,
+  height,
+  sx,
+  ...props
+}) => {
   return (
     <Point
       x={x}
@@ -22,6 +32,7 @@ const Label = ({ x, y, children, align, verticalAlign, width, height, sx }) => {
           textAlign: align,
           ...sx,
         }}
+        {...props}
       >
         {children}
       </Box>

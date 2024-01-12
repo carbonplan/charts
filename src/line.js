@@ -3,7 +3,14 @@ import { Box } from 'theme-ui'
 import { useChart } from './chart'
 import { line } from 'd3-shape'
 
-const Line = ({ data, color = 'primary', width = 1, curve = false, sx }) => {
+const Line = ({
+  data,
+  color = 'primary',
+  width = 1,
+  curve = false,
+  sx,
+  ...props
+}) => {
   const { x: _x, y: _y } = useChart()
 
   let generator = line()
@@ -27,6 +34,7 @@ const Line = ({ data, color = 'primary', width = 1, curve = false, sx }) => {
         vectorEffect: 'non-scaling-stroke',
         ...sx,
       }}
+      {...props}
     />
   )
 }

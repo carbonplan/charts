@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { Box } from 'theme-ui'
 import { useChart } from './chart'
 
-const Circle = ({ x, y, color = 'primary', size = 10, sx }) => {
+const Circle = ({ x, y, color = 'primary', size = 10, sx, ...props }) => {
   const { x: _x, y: _y } = useChart()
 
   return (
@@ -19,6 +19,7 @@ const Circle = ({ x, y, color = 'primary', size = 10, sx }) => {
         vectorEffect: 'non-scaling-stroke',
         ...sx,
       }}
+      {...props}
     />
   )
 }

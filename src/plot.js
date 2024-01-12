@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import useChartPadding from './utils/use-chart-padding'
 
-const Plot = ({ children, sx, mode = 'svg', square = false }) => {
+const Plot = ({ children, sx, mode = 'svg', square = false, ...props }) => {
   const responsiveSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
       height: `calc(100% - ${apt + pt + pb + apb}px)`,
@@ -31,6 +31,7 @@ const Plot = ({ children, sx, mode = 'svg', square = false }) => {
             overflow: 'visible',
             ...sx,
           }}
+          {...props}
         >
           {children}
         </Box>
