@@ -89,13 +89,7 @@ const Grid = ({ horizontal, vertical, count = 5, values, sx, ...props }) => {
             ...horizontalSx,
           }}
         >
-          <HorizontalGrid
-            bottom
-            values={values.horizontal}
-            y={y}
-            sx={sx}
-            {...props}
-          />
+          <HorizontalGrid values={values.horizontal} y={y} sx={sx} {...props} />
         </Box>
       )}
     </>
