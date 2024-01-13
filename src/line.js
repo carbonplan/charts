@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import { Box } from 'theme-ui'
 import { useChart } from './chart'
 import { line } from 'd3-shape'
+import { dropNans } from './utils/missing'
 
 const Line = ({
   data,
@@ -21,10 +22,12 @@ const Line = ({
     generator = generator.curve(curve)
   }
 
+  const filteredData = dropNans(data)
+
   return (
     <Box
       as='path'
-      d={generator(data)}
+      d={generator(filteredData)}
       sx={{
         stroke: color,
         strokeWidth: width,
