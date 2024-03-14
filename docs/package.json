@@ -1,6 +1,6 @@
 {
   "name": "charts-demo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "demo of @carbonplan/charts",
   "main": "index.js",
   "scripts": {
@@ -25,19 +25,19 @@
     "url": "https://github.com/carbonplan/charts/issues"
   },
   "dependencies": {
-    "@carbonplan/charts": "^2.7.0",
-    "@carbonplan/components": "^11.4.0",
-    "@carbonplan/layouts": "^2.4.1",
-    "@carbonplan/prism": "^1.0.3",
-    "@carbonplan/theme": "^6.0.1",
-    "@mdx-js/loader": "^1.6.22",
-    "@next/mdx": "^10.2.3",
+    "@carbonplan/charts": "^3.1.1",
+    "@carbonplan/components": "^12.6.1",
+    "@carbonplan/layouts": "^4.1.0",
+    "@carbonplan/prism": "^2.0.0",
+    "@carbonplan/theme": "^8.1.0",
+    "@mdx-js/loader": "^2.1.5",
+    "@next/mdx": "^12.3.1",
     "d3-scale": "^3.3.0",
     "d3-shape": "^2.1.0",
-    "next": "^11.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "theme-ui": "^0.13.1"
+    "next": "^12.0.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "theme-ui": "^0.15.3"
   },
   "devDependencies": {
     "prettier": "2.2.1"

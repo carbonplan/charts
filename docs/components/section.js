@@ -1,7 +1,7 @@
 import { MDXProvider } from '@mdx-js/react'
 import { Box } from 'theme-ui'
 import * as carbonPlanCharts from '@carbonplan/charts'
-import { LiveCode, Pre } from '@carbonplan/prism'
+import { LiveCode } from '@carbonplan/prism'
 import { NavSection } from '@carbonplan/layouts'
 import { contents } from './contents'
 
@@ -19,7 +19,7 @@ const scope = {
 }
 
 const components = {
-  code: ({ ...props }) => (
+  pre: ({ ...props }) => (
     <LiveCode
       theme={'monochrome'}
       transform={transform}
@@ -27,7 +27,6 @@ const components = {
       {...props}
     />
   ),
-  pre: Pre,
 }
 
 const Section = ({ children, name }) => {
