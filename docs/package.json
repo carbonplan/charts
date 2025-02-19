@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@carbonplan/charts": "^3.1.1",
-    "@carbonplan/components": "^12.6.3",
-    "@carbonplan/layouts": "^4.1.0",
+    "@carbonplan/components": "^13.1.1",
+    "@carbonplan/layouts": "^5.1.0",
     "@carbonplan/prism": "^2.0.0",
     "@carbonplan/theme": "^8.1.0",
     "@mdx-js/loader": "^2.1.5",
