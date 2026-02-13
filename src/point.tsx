@@ -44,7 +44,7 @@ const Point = ({
 
   if (!(['top', 'middle', 'bottom'] as const).includes(verticalAlign)) {
     throw new Error(
-      `'${verticalAlign}' is not a recognized vertical alignment, must be top or bottom`
+      `'${verticalAlign}' is not a recognized vertical alignment, must be top, middle, or bottom`
     )
   }
 
