@@ -1,7 +1,14 @@
 import React, { memo } from 'react'
-import { Box } from 'theme-ui'
+import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
-import { area } from 'd3-shape'
+import { area, CurveFactory } from 'd3-shape'
+import { PathBox } from './svg'
+
+export interface AreaProps extends Omit<BoxProps, 'color'> {
+  data: number[][]
+  color?: string
+  curve?: CurveFactory | false
+}
 
 /**
  * Renders an area <path>
@@ -14,10 +21,16 @@ import { area } from 'd3-shape'
  * @param  props.curve - optional curve factory
  * @param  props.sx - optional sx object
  */
-const Area = ({ data, color = 'primary', curve = false, sx, ...props }) => {
+const Area = ({
+  data,
+  color = 'primary',
+  curve = false,
+  sx,
+  ...props
+}: AreaProps) => {
   const { x: _x, y: _y } = useChart()
 
-  let generator = area()
+  let generator = area<number[]>()
     .x((d) => _x(d[0]))
     .y0((d) => (d.length === 3 ? _y(d[1]) : _y(0)))
     .y1((d) => _y(d[d.length - 1]))
@@ -27,8 +40,7 @@ const Area = ({ data, color = 'primary', curve = false, sx, ...props }) => {
   }
 
   return (
-    <Box
-      as='path'
+    <PathBox
       d={generator(data)}
       sx={{
         fill: color,

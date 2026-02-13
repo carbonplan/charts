@@ -1,19 +1,35 @@
 import React, { memo, useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
 
-import Bar from './bar'
+import Bar, { BarProps } from './bar'
 
-const getBarColors = (color, barLength, dataLength, opacityRange) => {
-  let colors
-  let opacities = []
+export interface StackedBarProps
+  extends Omit<BarProps, 'data' | 'color' | 'width' | 'ref'> {
+  data: number[][]
+  color?: string | string[] | string[][]
+  range?: [number, number]
+  width?: number
+}
+
+const isFlatStringArray = (c: string[] | string[][]): c is string[] =>
+  c.every((item) => typeof item === 'string')
+
+const getBarColors = (
+  color: string | string[] | string[][],
+  barLength: number,
+  dataLength: number,
+  opacityRange: [number, number]
+): { colors: (string | string[])[]; opacities: number[] } => {
+  let colors: (string | string[])[]
+  let opacities: number[] = []
   if (typeof color === 'string') {
     // single color for all bars has been provided, use same color with different opacity per bar
     colors = new Array(barLength).fill(color)
-    const opacity = scaleLinear()
+    const opacity = scaleLinear<number, number>()
       .domain([barLength - 1, 0])
       .range(opacityRange)
     opacities = new Array(barLength).fill(null).map((_, i) => opacity(i))
-  } else if (color.every((c) => typeof c === 'string')) {
+  } else if (isFlatStringArray(color)) {
     // color has been specified for each bar
     if (color.length !== barLength) {
       throw new Error(
@@ -35,7 +51,7 @@ const getBarColors = (color, barLength, dataLength, opacityRange) => {
       )
     }
 
-    colors = color.reduce(
+    colors = color.reduce<string[][]>(
       (accum, datum) => {
         datum.forEach((barColor, i) => accum[i].push(barColor))
         return accum
@@ -47,9 +63,14 @@ const getBarColors = (color, barLength, dataLength, opacityRange) => {
   return { colors, opacities }
 }
 
-const StackedBar = ({ data, color = 'primary', range, ...props }) => {
+const StackedBar = ({
+  data,
+  color = 'primary',
+  range,
+  ...props
+}: StackedBarProps) => {
   const bars = useMemo(() => {
-    const stackedData = data[0].slice(2).map(() => [])
+    const stackedData: number[][][] = data[0].slice(2).map(() => [])
     return data.reduce((accum, datum) => {
       const [x, ...yValues] = datum
 

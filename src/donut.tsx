@@ -1,7 +1,17 @@
 import React, { memo } from 'react'
-import { arc, pie } from 'd3-shape'
+import { arc, pie, PieArcDatum } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
-import { Box } from 'theme-ui'
+import { BoxProps } from 'theme-ui'
+import { PathBox } from './svg'
+
+export interface DonutProps extends Omit<BoxProps, 'color'> {
+  data: number[]
+  domain?: [number, number]
+  range?: [number, number]
+  innerRadius?: number
+  outerRadius?: number
+  color?: string
+}
 
 const Donut = ({
   data,
@@ -12,11 +22,11 @@ const Donut = ({
   color = 'primary',
   sx,
   ...props
-}) => {
+}: DonutProps) => {
   domain = domain || [0, data.length - 1]
   range = range || [0.3, 0.9]
-  const arcs = pie()(data)
-  const generator = arc()
+  const arcs = pie<number>()(data)
+  const generator = arc<PieArcDatum<number>>()
     .innerRadius(innerRadius * 100)
     .outerRadius(outerRadius)
   const opacity = scaleLinear().domain(domain).range(range)
@@ -25,9 +35,8 @@ const Donut = ({
     <g transform='translate(50,50)'>
       {arcs.map((d, i) => {
         return (
-          <Box
+          <PathBox
             key={i}
-            as='path'
             d={generator(d)}
             sx={{
               stroke: 'none',

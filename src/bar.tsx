@@ -1,6 +1,14 @@
 import React, { memo, useMemo } from 'react'
-import { useThemeUI } from 'theme-ui'
+import { get, useThemeUI } from 'theme-ui'
 import { useChart } from './chart'
+
+export interface BarProps
+  extends Omit<React.SVGProps<SVGPathElement>, 'color' | 'width'> {
+  data: number[][]
+  width?: number
+  direction?: 'vertical' | 'horizontal'
+  color?: string | string[]
+}
 
 const Bar = ({
   data,
@@ -8,30 +16,28 @@ const Bar = ({
   direction = 'vertical',
   color = 'primary',
   ...props
-}) => {
+}: BarProps) => {
   const { x: _x, y: _y } = useChart()
   const { theme } = useThemeUI()
 
   const flipped = direction === 'horizontal'
 
   const xValues = data.map((d) => d[0])
-  const minDelta = useMemo(
-    () =>
-      xValues
-        .sort()
-        .slice(1)
-        .reduce((min, el, i) => {
-          const transform = flipped ? _y : _x
-          const diff = Math.abs(transform(el) - transform(xValues[i]))
-          if (typeof min !== 'number' || diff < min) {
-            return diff
-          } else {
-            return min
-          }
-        }, null),
-
-    [xValues.join(',')]
-  )
+  const minDelta = useMemo(() => {
+    if (xValues.length < 2) return 0
+    return xValues
+      .sort()
+      .slice(1)
+      .reduce((min: number | null, el, i) => {
+        const transform = flipped ? _y : _x
+        const diff = Math.abs(transform(el) - transform(xValues[i]))
+        if (typeof min !== 'number' || diff < min) {
+          return diff
+        } else {
+          return min
+        }
+      }, null) as number
+  }, [xValues.join(',')])
   const fixedWidth = minDelta * width
   if (Array.isArray(color) && color.length !== data.length) {
     throw new Error(
@@ -49,7 +55,7 @@ const Bar = ({
         const upper = Math.max(...varyingPositions)
 
         const position = [`${fixedPosition - fixedWidth / 2}`, `${lower}`] // x, y
-        const dimensions = [fixedWidth, `${upper - lower}`] // width, height
+        const dimensions: (string | number)[] = [fixedWidth, `${upper - lower}`] // width, height
 
         if (flipped) {
           position.reverse()
@@ -60,7 +66,7 @@ const Bar = ({
         const [width, height] = dimensions
 
         const colorString = typeof color === 'string' ? color : color[i]
-        const fill = theme.rawColors[colorString] || colorString
+        const fill = get(theme, `rawColors.${colorString}`, colorString)
 
         return (
           <path

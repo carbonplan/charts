@@ -1,7 +1,16 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import useChartPadding from './utils/use-chart-padding'
+
+export interface PointProps extends BoxProps {
+  x: number
+  y: number
+  align?: 'left' | 'right' | 'center'
+  verticalAlign?: 'top' | 'middle' | 'bottom'
+  width?: number
+  height?: number
+}
 
 const Point = ({
   x,
@@ -12,7 +21,7 @@ const Point = ({
   width,
   height,
   ...props
-}) => {
+}: PointProps) => {
   const { x: _x, y: _y } = useChart()
   const responsiveSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
@@ -23,17 +32,17 @@ const Point = ({
     })
   )
 
-  let position,
-    verticalPosition,
-    flexStyles = {}
+  let position: Record<string, string> | undefined,
+    verticalPosition: Record<string, string> | undefined,
+    flexStyles: Record<string, string> = {}
 
-  if (!['left', 'right', 'center'].includes(align)) {
+  if (!(['left', 'right', 'center'] as const).includes(align)) {
     throw new Error(
       `'${align}' is not a recognized alignment, must be left, right, or center`
     )
   }
 
-  if (!['top', 'middle', 'bottom'].includes(verticalAlign)) {
+  if (!(['top', 'middle', 'bottom'] as const).includes(verticalAlign)) {
     throw new Error(
       `'${verticalAlign}' is not a recognized vertical alignment, must be top or bottom`
     )
@@ -55,8 +64,8 @@ const Point = ({
 
   if (align === 'center') {
     position = {
-      left: `${_x(x - width / 2)}%`,
-      right: `${100 - _x(x + width / 2)}%`,
+      left: `${_x(x - width! / 2)}%`,
+      right: `${100 - _x(x + width! / 2)}%`,
     }
   }
 
@@ -74,8 +83,8 @@ const Point = ({
 
   if (verticalAlign === 'middle') {
     verticalPosition = {
-      top: `${_y(y + height / 2)}%`,
-      bottom: `${100 - _y(y - height / 2)}%`,
+      top: `${_y(y + height! / 2)}%`,
+      bottom: `${100 - _y(y - height! / 2)}%`,
     }
     flexStyles = {
       display: 'flex',

@@ -1,6 +1,15 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
 import Point from './point'
+
+export interface LabelProps extends Omit<BoxProps, 'height'> {
+  x: number
+  y: number
+  align?: 'left' | 'right' | 'center'
+  verticalAlign?: 'top' | 'middle' | 'bottom'
+  width?: number
+  height?: number
+}
 
 const Label = ({
   x,
@@ -12,7 +21,7 @@ const Label = ({
   height,
   sx,
   ...props
-}) => {
+}: LabelProps) => {
   return (
     <Point
       x={x}

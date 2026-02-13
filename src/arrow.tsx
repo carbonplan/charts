@@ -1,10 +1,12 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { BoxProps } from 'theme-ui'
+import { SvgBox } from './svg'
 
-const Arrow = ({ sx, ...props }) => {
+export interface ArrowProps extends BoxProps {}
+
+const Arrow = ({ sx, ...props }: ArrowProps) => {
   return (
-    <Box
-      as='svg'
+    <SvgBox
       viewBox='0 0 20 20'
       sx={{
         width: 24,
@@ -19,7 +21,7 @@ const Arrow = ({ sx, ...props }) => {
     c0-0.29,0.11-0.36,0.36-0.36h10.13c0.79,0,1.33,0.54,1.33,1.3v10.17c0,0.25-0.11,0.36-0.36,0.36H14.9c-0.25,0-0.36-0.11-0.36-0.36
     V7.3L4.8,17.07c-0.18,0.18-0.32,0.18-0.5,0L2.93,15.66z'
       />
-    </Box>
+    </SvgBox>
   )
 }
 

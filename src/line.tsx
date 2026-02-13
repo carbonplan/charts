@@ -1,7 +1,15 @@
 import React, { memo } from 'react'
-import { Box } from 'theme-ui'
+import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
-import { line } from 'd3-shape'
+import { line, CurveFactory } from 'd3-shape'
+import { PathBox } from './svg'
+
+export interface LineProps extends Omit<BoxProps, 'color' | 'width'> {
+  data: [number, number][]
+  color?: string
+  width?: number
+  curve?: CurveFactory | false
+}
 
 const Line = ({
   data,
@@ -10,10 +18,10 @@ const Line = ({
   curve = false,
   sx,
   ...props
-}) => {
+}: LineProps) => {
   const { x: _x, y: _y } = useChart()
 
-  let generator = line()
+  let generator = line<[number, number]>()
     .x((d) => _x(d[0]))
     .y((d) => _y(d[1]))
 
@@ -22,8 +30,7 @@ const Line = ({
   }
 
   return (
-    <Box
-      as='path'
+    <PathBox
       d={generator(data)}
       sx={{
         stroke: color,

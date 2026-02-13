@@ -1,18 +1,39 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
 import useChartPadding from './utils/use-chart-padding'
 
+export interface TickLabelsProps extends BoxProps {
+  left?: boolean
+  right?: boolean
+  top?: boolean
+  bottom?: boolean
+  count?: number
+  values?: number[]
+  labels?: (string | number)[]
+  format?: (d: number) => string | number
+  padding?: number
+}
+
 const styles = {
   tick: {
-    position: 'absolute',
+    position: 'absolute' as const,
     fontSize: [0, 0, 0, 1],
     fontFamily: 'mono',
     letterSpacing: 'mono',
     color: 'secondary',
-    userSelect: 'none',
+    userSelect: 'none' as const,
   },
+}
+
+interface VerticalTickLabelsInternalProps extends Pick<BoxProps, 'sx'> {
+  values: number[]
+  x: (d: number) => number
+  labels: (string | number)[]
+  top?: boolean
+  bottom?: boolean
+  padding: number
 }
 
 const VerticalTickLabels = ({
@@ -23,8 +44,8 @@ const VerticalTickLabels = ({
   bottom,
   padding,
   sx,
-}) => {
-  let position
+}: VerticalTickLabelsInternalProps) => {
+  let position: Record<string, string | string[]> | undefined
   if (top)
     position = {
       bottom: [
@@ -57,6 +78,15 @@ const VerticalTickLabels = ({
   })
 }
 
+interface HorizontalTickLabelsInternalProps extends Pick<BoxProps, 'sx'> {
+  values: number[]
+  y: (d: number) => number
+  labels: (string | number)[]
+  left?: boolean
+  right?: boolean
+  padding: number
+}
+
 const HorizontalTickLabels = ({
   values,
   y,
@@ -65,8 +95,8 @@ const HorizontalTickLabels = ({
   right,
   padding,
   sx,
-}) => {
-  let position
+}: HorizontalTickLabelsInternalProps) => {
+  let position: Record<string, string> | undefined
   if (left) position = { right: `${padding + 4}px` }
   if (right) position = { left: `${padding + 4}px` }
   return values.map((d, i) => {
@@ -95,12 +125,12 @@ const TickLabels = ({
   top,
   bottom,
   count,
-  values,
-  labels,
+  values: valuesProp,
+  labels: labelsProp,
   format,
   padding = 8,
   sx,
-}) => {
+}: TickLabelsProps) => {
   const { x, y, logx, logy } = useChart()
   const leftSx = useChartPadding(({ apt, pt, pb, apb, pl }) => ({
     top: `${apt + pt}px`,
@@ -127,18 +157,40 @@ const TickLabels = ({
   const countx = count == null ? (logx ? 2 : 5) : count
   const county = count == null ? (logy ? 2 : 5) : count
 
-  values = getTicks({ values, count, countx, county, logx, logy, x, y })
+  const values = getTicks({
+    values: valuesProp,
+    count,
+    countx,
+    county,
+    logx,
+    logy,
+    x,
+    y,
+  })
 
-  if ((left || right) && labels && labels.length !== values.horizontal.length) {
+  if (
+    (left || right) &&
+    labelsProp &&
+    labelsProp.length !== values.horizontal.length
+  ) {
     throw Error(
-      `when specfiying labels directly the number of labels must match the number of ticks, got ${labels.length} labels for ${values.horizontal.length} values`
+      `when specfiying labels directly the number of labels must match the number of ticks, got ${labelsProp.length} labels for ${values.horizontal.length} values`
     )
   }
 
-  if ((top || bottom) && labels && labels.length !== values.vertical.length) {
+  if (
+    (top || bottom) &&
+    labelsProp &&
+    labelsProp.length !== values.vertical.length
+  ) {
     throw Error(
-      `when specfiying labels directly the number of labels must match the number of ticks, got ${labels.length} labels for ${values.vertical.length} values`
+      `when specfiying labels directly the number of labels must match the number of ticks, got ${labelsProp.length} labels for ${values.vertical.length} values`
     )
+  }
+
+  let labels: {
+    horizontal: (string | number)[]
+    vertical: (string | number)[]
   }
 
   if (format) {
@@ -147,8 +199,8 @@ const TickLabels = ({
       vertical: values.vertical.map((d) => format(d)),
     }
   } else {
-    labels = labels
-      ? { vertical: labels, horizontal: labels }
+    labels = labelsProp
+      ? { vertical: labelsProp, horizontal: labelsProp }
       : { vertical: values.vertical, horizontal: values.horizontal }
   }
 

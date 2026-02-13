@@ -1,13 +1,27 @@
 import React, { memo } from 'react'
-import { Box } from 'theme-ui'
+import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
+import { LineBox } from './svg'
 
-const Circle = ({ x, y, color = 'primary', size = 10, sx, ...props }) => {
+export interface CircleProps extends Omit<BoxProps, 'color'> {
+  x: number
+  y: number
+  color?: string
+  size?: number
+}
+
+const Circle = ({
+  x,
+  y,
+  color = 'primary',
+  size = 10,
+  sx,
+  ...props
+}: CircleProps) => {
   const { x: _x, y: _y } = useChart()
 
   return (
-    <Box
-      as='line'
+    <LineBox
       x1={`${_x(x)}`}
       x2={`${_x(x) + 0.00001}`}
       y1={`${_y(y)}`}

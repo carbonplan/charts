@@ -1,31 +1,41 @@
 import React from 'react'
-import { Box, Flex } from 'theme-ui'
+import { Box, BoxProps, Flex } from 'theme-ui'
 import Arrow from './arrow'
 import useChartPadding from './utils/use-chart-padding'
 
+export interface AxisLabelProps extends BoxProps {
+  left?: boolean
+  right?: boolean
+  top?: boolean
+  bottom?: boolean
+  units?: React.ReactNode
+  arrow?: boolean
+  align?: 'left' | 'right' | 'center'
+}
+
 const styles = {
   label: {
-    position: 'absolute',
+    position: 'absolute' as const,
     fontSize: [0, 0, 0, 1],
     fontFamily: 'mono',
     letterSpacing: 'mono',
     color: 'primary',
-    textTransform: 'uppercase',
-    userSelect: 'none',
+    textTransform: 'uppercase' as const,
+    userSelect: 'none' as const,
   },
 }
 
 const AxisLabel = ({
   left,
-  right,
-  top,
+  right: _right,
+  top: _top,
   bottom,
   children,
   sx,
   units,
   arrow = true,
   align = 'right',
-}) => {
+}: AxisLabelProps) => {
   const bottomSx = useChartPadding(({ apl, pl, pr, apr }) => ({
     left: `${apl + pl + (align === 'right' ? 2 : 0)}px`,
     width: `calc(100% - ${apl + pl + pr + apr}px)`,
@@ -34,13 +44,13 @@ const AxisLabel = ({
     bottom: `${apb + pb + (align === 'right' ? 2 : 0)}px`,
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
   }))
-  const alignToFlexVertical = {
+  const alignToFlexVertical: Record<string, string> = {
     left: 'flex-end',
     right: 'flex-start',
     center: 'center',
   }
 
-  const alignToFlex = {
+  const alignToFlex: Record<string, string> = {
     left: 'flex-start',
     right: 'flex-end',
     center: 'center',
@@ -63,7 +73,6 @@ const AxisLabel = ({
       {bottom && (
         <Box
           sx={{
-            position: 'absolute',
             bottom: [`0px`, `0px`, `0px`, `-4px`],
             textAlign: align,
             ...bottomSx,
@@ -98,7 +107,6 @@ const AxisLabel = ({
       {left && (
         <Box
           sx={{
-            position: 'absolute',
             left: '-3px',
             textAlign: align,
             ...leftSx,
@@ -108,7 +116,7 @@ const AxisLabel = ({
         >
           <Box
             sx={{
-              writingMode: 'tb-rl',
+              writingMode: 'vertical-rl',
               display: 'flex',
               alignItems: 'flex-end',
               justifyContent: alignToFlexVertical[align],

@@ -1,20 +1,48 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
 import useChartPadding from './utils/use-chart-padding'
 
+export interface TicksProps extends BoxProps {
+  left?: boolean
+  right?: boolean
+  top?: boolean
+  bottom?: boolean
+  count?: number
+  values?: number[]
+  size?: number
+  padding?: number
+}
+
 const styles = {
   tick: {
-    position: 'absolute',
+    position: 'absolute' as const,
   },
 }
 
-const VerticalTicks = ({ values, x, top, bottom, padding, size, sx }) => {
-  let position
+interface VerticalTicksInternalProps extends Pick<BoxProps, 'sx'> {
+  values: number[]
+  x: (d: number) => number
+  top?: boolean
+  bottom?: boolean
+  padding: number
+  size: number
+}
+
+const VerticalTicks = ({
+  values,
+  x,
+  top,
+  bottom,
+  padding,
+  size,
+  sx,
+}: VerticalTicksInternalProps) => {
+  let position: Record<string, string> | undefined
   if (top) position = { bottom: `${padding}px` }
   if (bottom) position = { top: `${padding}px` }
-  return values.map((d, i) => {
+  return values.map((d) => {
     return (
       <Box
         key={d}
@@ -34,11 +62,28 @@ const VerticalTicks = ({ values, x, top, bottom, padding, size, sx }) => {
   })
 }
 
-const HorizontalTicks = ({ values, y, left, right, padding, size, sx }) => {
-  let position
+interface HorizontalTicksInternalProps extends Pick<BoxProps, 'sx'> {
+  values: number[]
+  y: (d: number) => number
+  left?: boolean
+  right?: boolean
+  padding: number
+  size: number
+}
+
+const HorizontalTicks = ({
+  values,
+  y,
+  left,
+  right,
+  padding,
+  size,
+  sx,
+}: HorizontalTicksInternalProps) => {
+  let position: Record<string, string> | undefined
   if (left) position = { right: `${padding}px` }
   if (right) position = { left: `${padding}px` }
-  return values.map((d, i) => {
+  return values.map((d) => {
     return (
       <Box
         key={d}
@@ -64,11 +109,11 @@ const Ticks = ({
   top,
   bottom,
   count = 5,
-  values,
+  values: valuesProp,
   size = 6,
   padding = 0,
   sx,
-}) => {
+}: TicksProps) => {
   const { x, y, logx, logy } = useChart()
 
   const leftSx = useChartPadding(({ apt, pt, pb, apb, pl }) => ({
@@ -95,7 +140,7 @@ const Ticks = ({
     left: `${apl + pl}px`,
   }))
 
-  values = getTicks({ values, count, logx, logy, x, y })
+  const values = getTicks({ values: valuesProp, count, logx, logy, x, y })
 
   return (
     <>

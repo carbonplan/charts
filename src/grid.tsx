@@ -1,12 +1,19 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
 import useChartPadding from './utils/use-chart-padding'
 
+export interface GridProps extends BoxProps {
+  horizontal?: boolean
+  vertical?: boolean
+  count?: number
+  values?: number[]
+}
+
 const styles = {
   grid: {
-    position: 'absolute',
+    position: 'absolute' as const,
     borderColor: 'muted',
     borderStyle: 'solid',
     borderWidth: '0px',
@@ -14,8 +21,18 @@ const styles = {
   },
 }
 
-const VerticalGrid = ({ values, x, sx, ...props }) => {
-  return values.map((d, i) => {
+interface VerticalGridProps extends BoxProps {
+  values: number[]
+  x: (d: number) => number
+}
+
+interface HorizontalGridProps extends BoxProps {
+  values: number[]
+  y: (d: number) => number
+}
+
+const VerticalGrid = ({ values, x, sx, ...props }: VerticalGridProps) => {
+  return values.map((d) => {
     return (
       <Box
         key={d}
@@ -32,8 +49,8 @@ const VerticalGrid = ({ values, x, sx, ...props }) => {
   })
 }
 
-const HorizontalGrid = ({ values, y, sx, ...props }) => {
-  return values.map((d, i) => {
+const HorizontalGrid = ({ values, y, sx, ...props }: HorizontalGridProps) => {
+  return values.map((d) => {
     return (
       <Box
         key={d}
@@ -50,7 +67,14 @@ const HorizontalGrid = ({ values, y, sx, ...props }) => {
   })
 }
 
-const Grid = ({ horizontal, vertical, count = 5, values, sx, ...props }) => {
+const Grid = ({
+  horizontal,
+  vertical,
+  count = 5,
+  values: valuesProp,
+  sx,
+  ...props
+}: GridProps) => {
   const { x, y, logx, logy } = useChart()
   const verticalSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
@@ -68,7 +92,7 @@ const Grid = ({ horizontal, vertical, count = 5, values, sx, ...props }) => {
       top: `${apt + pt}px`,
     })
   )
-  values = getTicks({ values, count, logx, logy, x, y })
+  const values = getTicks({ values: valuesProp, count, logx, logy, x, y })
 
   return (
     <>
