@@ -4,9 +4,8 @@ var e10 = Math.sqrt(50),
 
 interface GetTicksParams {
   values?: number[]
-  count: number
-  countx?: number
-  county?: number
+  countx: number
+  county: number
   logx: boolean
   logy: boolean
   x: { domain(): number[] }
@@ -15,7 +14,6 @@ interface GetTicksParams {
 
 export default function getTicks({
   values,
-  count,
   countx,
   county,
   logx,
@@ -23,8 +21,6 @@ export default function getTicks({
   x,
   y,
 }: GetTicksParams): { horizontal: number[]; vertical: number[] } {
-  countx = countx || count
-  county = county || count
   let verticalValues: number[], horizontalValues: number[]
 
   const verticalGenerator = logx ? logTicks : ticks

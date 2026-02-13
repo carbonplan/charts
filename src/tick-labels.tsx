@@ -159,7 +159,6 @@ const TickLabels = ({
 
   const values = getTicks({
     values: valuesProp,
-    count,
     countx,
     county,
     logx,

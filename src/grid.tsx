@@ -92,7 +92,15 @@ const Grid = ({
       top: `${apt + pt}px`,
     })
   )
-  const values = getTicks({ values: valuesProp, count, logx, logy, x, y })
+  const values = getTicks({
+    values: valuesProp,
+    countx: count,
+    county: count,
+    logx,
+    logy,
+    x,
+    y,
+  })
 
   return (
     <>
