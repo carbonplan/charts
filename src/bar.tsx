@@ -26,7 +26,7 @@ const Bar = ({
   const minDelta = useMemo(() => {
     if (xValues.length < 2) return 0
     return xValues
-      .sort()
+      .sort((a, b) => a - b)
       .slice(1)
       .reduce((min: number | null, el, i) => {
         const transform = flipped ? _y : _x
@@ -37,7 +37,7 @@ const Bar = ({
           return min
         }
       }, null) as number
-  }, [xValues.join(',')])
+  }, [xValues.join(','), direction, _x, _y])
   const fixedWidth = minDelta * width
   if (Array.isArray(color) && color.length !== data.length) {
     throw new Error(
