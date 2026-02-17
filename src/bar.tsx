@@ -4,7 +4,7 @@ import { useChart } from './chart'
 
 export interface BarProps
   extends Omit<React.SVGProps<SVGPathElement>, 'color' | 'width'> {
-  data: number[][]
+  data: ([number, number] | [number, number, number])[]
   width?: number
   direction?: 'vertical' | 'horizontal'
   color?: string | string[]

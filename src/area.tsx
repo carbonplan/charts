@@ -5,7 +5,7 @@ import { area, CurveFactory } from 'd3-shape'
 import { PathBox } from './svg'
 
 export interface AreaProps extends Omit<BoxProps, 'color'> {
-  data: number[][]
+  data: ([number, number] | [number, number, number])[]
   color?: string
   curve?: CurveFactory | false
 }

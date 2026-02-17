@@ -5,7 +5,7 @@ import Bar, { BarProps } from './bar'
 
 export interface StackedBarProps
   extends Omit<BarProps, 'data' | 'color' | 'width' | 'ref'> {
-  data: number[][]
+  data: [number, ...number[]][]
   color?: string | string[] | string[][]
   range?: [number, number]
   width?: number
@@ -70,7 +70,9 @@ const StackedBar = ({
   ...props
 }: StackedBarProps) => {
   const bars = useMemo(() => {
-    const stackedData: number[][][] = data[0].slice(2).map(() => [])
+    const stackedData: [number, number, number][][] = data[0]
+      .slice(2)
+      .map(() => [])
     return data.reduce((accum, datum) => {
       const [x, ...yValues] = datum
 
