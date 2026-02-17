@@ -25,11 +25,9 @@ This is a scatter chart.
     <Plot>
       <Scatter
         size={10}
-        x={(d) => d.x}
-        y={(d) => d.y}
         data={[
-          { x: 100, y: 50 },
-          { x: 0, y: 100 },
+          [100, 50],
+          [0, 100],
         ]}
       />
     </Plot>
@@ -47,11 +45,9 @@ This is a scatter chart.
     <Plot>
       <Scatter
         size={10}
-        x={(d) => d.x}
-        y={(d) => d.y}
         data={[
-          { x: 100, y: 50 },
-          { x: 0, y: 100 },
+          [100, 50],
+          [0, 100],
         ]}
       />
     </Plot>
