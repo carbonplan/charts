@@ -105,7 +105,7 @@ const StackedBar = ({
             key={i}
             data={bar}
             color={colors[i]}
-            fillOpacity={opacities[i]}
+            sx={{ fillOpacity: opacities[i] }}
             {...props}
           />
         )

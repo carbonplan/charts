@@ -1,10 +1,10 @@
 import React, { memo, useMemo } from 'react'
-import { get, useThemeUI } from 'theme-ui'
+import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
+import { PathBox } from './svg'
 import { DataSeries } from './types'
 
-export interface BarProps
-  extends Omit<React.SVGProps<SVGPathElement>, 'color' | 'width'> {
+export interface BarProps extends Omit<BoxProps, 'color' | 'width'> {
   data: DataSeries
   width?: number
   direction?: 'vertical' | 'horizontal'
@@ -19,7 +19,6 @@ const Bar = ({
   ...props
 }: BarProps) => {
   const { x: _x, y: _y } = useChart()
-  const { theme } = useThemeUI()
 
   const flipped = direction === 'horizontal'
 
@@ -64,17 +63,18 @@ const Bar = ({
         }
 
         const [x, y] = position
-        const [width, height] = dimensions
+        const [barWidth, height] = dimensions
 
         const colorString = typeof color === 'string' ? color : color[i]
-        const fill = get(theme, `rawColors.${colorString}`, colorString)
 
         return (
-          <path
+          <PathBox
             key={i}
-            d={`M ${x} ${y} h ${width} v ${height} h -${width} Z`}
-            fill={fill}
-            stroke='none'
+            d={`M ${x} ${y} h ${barWidth} v ${height} h -${barWidth} Z`}
+            sx={{
+              fill: colorString,
+              stroke: 'none',
+            }}
             {...props}
           />
         )
