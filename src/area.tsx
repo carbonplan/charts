@@ -8,20 +8,10 @@ import { DataSeries } from './types'
 export interface AreaProps extends Omit<BoxProps, 'color'> {
   data: DataSeries
   color?: string
+  /** d3 curve factory, or `false` for linear interpolation. */
   curve?: CurveFactory | false
 }
 
-/**
- * Renders an area <path>
- * @param  props
- * @param  props.data - array of values specifying the two bounding lines of the area, where
- *                      entries can be of the shape [x, y1] (a lower bounding line of [x, 0]
- *                      is assumed) or of the shape [x, y0, y1] (where [x, y1] becomes the
- *                      upper line and [x, y0] the lower line).
- * @param  props.color - the color of the area fill
- * @param  props.curve - optional curve factory
- * @param  props.sx - optional sx object
- */
 const Area = ({
   data,
   color = 'primary',
