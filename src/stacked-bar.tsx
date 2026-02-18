@@ -2,10 +2,11 @@ import React, { memo, useMemo } from 'react'
 import { scaleLinear } from 'd3-scale'
 
 import Bar, { BarProps } from './bar'
+import { RangeDatum, StackedDatum } from './types'
 
 export interface StackedBarProps
   extends Omit<BarProps, 'data' | 'color' | 'width' | 'ref'> {
-  data: [number, ...number[]][]
+  data: StackedDatum[]
   color?: string | string[] | string[][]
   range?: [number, number]
   width?: number
@@ -70,9 +71,7 @@ const StackedBar = ({
   ...props
 }: StackedBarProps) => {
   const bars = useMemo(() => {
-    const stackedData: [number, number, number][][] = data[0]
-      .slice(2)
-      .map(() => [])
+    const stackedData: RangeDatum[][] = data[0].slice(2).map(() => [])
     return data.reduce((accum, datum) => {
       const [x, ...yValues] = datum
 

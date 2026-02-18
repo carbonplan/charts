@@ -2,9 +2,10 @@ import React, { memo } from 'react'
 import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import { PathBox } from './svg'
+import { Datum } from './types'
 
 export interface ScatterProps extends Omit<BoxProps, 'color'> {
-  data: [number, number][]
+  data: Datum[]
   color?: string
   size?: number
 }

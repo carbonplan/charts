@@ -3,9 +3,10 @@ import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import { line, CurveFactory } from 'd3-shape'
 import { PathBox } from './svg'
+import { Datum } from './types'
 
 export interface LineProps extends Omit<BoxProps, 'color' | 'width'> {
-  data: [number, number][]
+  data: Datum[]
   color?: string
   width?: number
   curve?: CurveFactory | false
@@ -21,7 +22,7 @@ const Line = ({
 }: LineProps) => {
   const { x: _x, y: _y } = useChart()
 
-  let generator = line<[number, number]>()
+  let generator = line<Datum>()
     .x((d) => _x(d[0]))
     .y((d) => _y(d[1]))
 

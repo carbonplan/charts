@@ -1,3 +1,4 @@
+export type { Datum, RangeDatum, DataSeries, StackedDatum } from './types'
 export { default as Area, type AreaProps } from './area'
 export { default as Axis, type AxisProps } from './axis'
 export { default as AxisLabel, type AxisLabelProps } from './axis-label'

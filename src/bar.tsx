@@ -1,10 +1,11 @@
 import React, { memo, useMemo } from 'react'
 import { get, useThemeUI } from 'theme-ui'
 import { useChart } from './chart'
+import { DataSeries } from './types'
 
 export interface BarProps
   extends Omit<React.SVGProps<SVGPathElement>, 'color' | 'width'> {
-  data: ([number, number] | [number, number, number])[]
+  data: DataSeries
   width?: number
   direction?: 'vertical' | 'horizontal'
   color?: string | string[]

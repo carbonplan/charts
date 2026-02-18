@@ -3,9 +3,10 @@ import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import { area, CurveFactory } from 'd3-shape'
 import { PathBox } from './svg'
+import { DataSeries } from './types'
 
 export interface AreaProps extends Omit<BoxProps, 'color'> {
-  data: ([number, number] | [number, number, number])[]
+  data: DataSeries
   color?: string
   curve?: CurveFactory | false
 }
