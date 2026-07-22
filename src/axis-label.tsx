@@ -3,13 +3,13 @@ import { Box, BoxProps, Flex } from 'theme-ui'
 import Arrow from './arrow'
 import useChartPadding from './utils/use-chart-padding'
 
-/** A label with an optional arrow and units, placed along the left or bottom axis. */
+/** A label with an optional arrow and units, placed along any of the four axes. */
 export interface AxisLabelProps extends BoxProps {
   /** Render the label along the left (y) axis. */
   left?: boolean
-  /** Reserved: right-axis labels are not currently rendered. */
+  /** Render the label along the right (y) axis. */
   right?: boolean
-  /** Reserved: top-axis labels are not currently rendered. */
+  /** Render the label along the top (x) axis. */
   top?: boolean
   /** Render the label along the bottom (x) axis. */
   bottom?: boolean
@@ -38,8 +38,8 @@ const styles = {
 
 const AxisLabel = ({
   left,
-  right: _right,
-  top: _top,
+  right,
+  top,
   bottom,
   children,
   sx,
@@ -47,11 +47,11 @@ const AxisLabel = ({
   arrow = true,
   align = 'right',
 }: AxisLabelProps) => {
-  const bottomSx = useChartPadding(({ apl, pl, pr, apr }) => ({
+  const horizontalSx = useChartPadding(({ apl, pl, pr, apr }) => ({
     left: `${apl + pl + (align === 'right' ? 2 : 0)}px`,
     width: `calc(100% - ${apl + pl + pr + apr}px)`,
   }))
-  const leftSx = useChartPadding(({ apb, pb, apt, pt }) => ({
+  const verticalSx = useChartPadding(({ apb, pb, apt, pt }) => ({
     bottom: `${apb + pb + (align === 'right' ? 2 : 0)}px`,
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
   }))
@@ -79,6 +79,68 @@ const AxisLabel = ({
     </>
   )
 
+  const horizontalArrow = arrow && (
+    <Arrow
+      sx={{
+        position: 'relative',
+        top: '3px',
+        ml: ['6px'],
+        width: 11,
+        height: 11,
+        transform: 'rotate(45deg)',
+      }}
+    />
+  )
+
+  const verticalArrow = arrow && (
+    <Arrow
+      sx={{
+        position: 'relative',
+        right: '4px',
+        mt: ['6px'],
+        width: 11,
+        height: 11,
+        transform: 'rotate(135deg)',
+      }}
+    />
+  )
+
+  const horizontalContent = (
+    <Flex
+      sx={{
+        alignItems: 'flex-start',
+        justifyContent: alignToFlex[align],
+      }}
+    >
+      {inner}
+      {horizontalArrow}
+    </Flex>
+  )
+
+  const verticalContent = (
+    <Box
+      sx={{
+        writingMode: 'vertical-rl',
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: alignToFlexVertical[align],
+        height: '100%',
+      }}
+    >
+      <Box sx={{ transform: 'rotate(180deg)' }}>
+        <Flex
+          sx={{
+            alignItems: 'flex-start',
+            justifyContent: alignToFlex[align],
+          }}
+        >
+          {inner}
+          {verticalArrow}
+        </Flex>
+      </Box>
+    </Box>
+  )
+
   return (
     <>
       {bottom && (
@@ -86,33 +148,25 @@ const AxisLabel = ({
           sx={{
             bottom: [`0px`, `0px`, `0px`, `-4px`],
             textAlign: align,
-            ...bottomSx,
+            ...horizontalSx,
             ...styles.label,
             ...sx,
           }}
         >
-          <Flex
-            sx={{
-              alignItems: 'flex-start',
-              justifyContent: alignToFlex[align],
-            }}
-          >
-            {inner}
-            {arrow && (
-              <>
-                <Arrow
-                  sx={{
-                    position: 'relative',
-                    top: '3px',
-                    ml: ['6px'],
-                    width: 11,
-                    height: 11,
-                    transform: 'rotate(45deg)',
-                  }}
-                />
-              </>
-            )}
-          </Flex>
+          {horizontalContent}
+        </Box>
+      )}
+      {top && (
+        <Box
+          sx={{
+            top: [`0px`, `0px`, `0px`, `-4px`],
+            textAlign: align,
+            ...horizontalSx,
+            ...styles.label,
+            ...sx,
+          }}
+        >
+          {horizontalContent}
         </Box>
       )}
       {left && (
@@ -120,49 +174,25 @@ const AxisLabel = ({
           sx={{
             left: '-3px',
             textAlign: align,
-            ...leftSx,
+            ...verticalSx,
             ...styles.label,
             ...sx,
           }}
         >
-          <Box
-            sx={{
-              writingMode: 'vertical-rl',
-              display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: alignToFlexVertical[align],
-              height: '100%',
-            }}
-          >
-            <Box
-              sx={{
-                transform: 'rotate(180deg)',
-              }}
-            >
-              <Flex
-                sx={{
-                  alignItems: 'flex-start',
-                  justifyContent: alignToFlex[align],
-                }}
-              >
-                {inner}
-                {arrow && (
-                  <>
-                    <Arrow
-                      sx={{
-                        position: 'relative',
-                        right: '4px',
-                        mt: ['6px'],
-                        width: 11,
-                        height: 11,
-                        transform: 'rotate(135deg)',
-                      }}
-                    />
-                  </>
-                )}
-              </Flex>
-            </Box>
-          </Box>
+          {verticalContent}
+        </Box>
+      )}
+      {right && (
+        <Box
+          sx={{
+            right: '-3px',
+            textAlign: align,
+            ...verticalSx,
+            ...styles.label,
+            ...sx,
+          }}
+        >
+          {verticalContent}
         </Box>
       )}
     </>
