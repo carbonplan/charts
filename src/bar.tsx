@@ -39,6 +39,7 @@ const Bar = ({
   width = 0.8,
   direction = 'vertical',
   color = 'primary',
+  sx,
   ...props
 }: BarProps) => {
   const { x: _x, y: _y } = useChart()
@@ -97,6 +98,7 @@ const Bar = ({
             sx={{
               fill: colorString,
               stroke: 'none',
+              ...sx,
             }}
             {...props}
           />
