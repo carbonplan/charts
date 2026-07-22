@@ -4,15 +4,39 @@ import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
 import useChartPadding from './utils/use-chart-padding'
 
+/** Text labels for tick positions along any combination of the four sides. */
 export interface TickLabelsProps extends BoxProps {
+  /** Label ticks along the left (y) axis. */
   left?: boolean
+  /** Label ticks along the right (y) axis. */
   right?: boolean
+  /** Label ticks along the top (x) axis. */
   top?: boolean
+  /** Label ticks along the bottom (x) axis. */
   bottom?: boolean
+  /**
+   * Approximate number of labels. Ignored when `values` is set. Defaults to `5`
+   * (or `2` on log axes).
+   */
   count?: number
-  values?: number[]
+  /**
+   * Explicit tick positions to label, in data space. Pass `null` to fall back
+   * to automatically generated positions.
+   * @example values={[0, 50, 100]}
+   */
+  values?: number[] | null
+  /**
+   * Explicit label text, one per tick. Length must match the number of ticks.
+   * @example labels={['low', 'mid', 'high']}
+   */
   labels?: (string | number)[]
-  format?: (d: number) => string | number
+  /**
+   * Format each tick value into its displayed label. Returning `undefined`
+   * omits that tick's label.
+   * @example format={(d) => `$${d}`}
+   */
+  format?: (d: number) => string | number | undefined
+  /** Gap in pixels between the label and the axis. Defaults to `8`. */
   padding?: number
 }
 
@@ -30,7 +54,7 @@ const styles = {
 interface VerticalTickLabelsInternalProps extends Pick<BoxProps, 'sx'> {
   values: number[]
   x: (d: number) => number
-  labels: (string | number)[]
+  labels: (string | number | undefined)[]
   top?: boolean
   bottom?: boolean
   padding: number
@@ -81,7 +105,7 @@ const VerticalTickLabels = ({
 interface HorizontalTickLabelsInternalProps extends Pick<BoxProps, 'sx'> {
   values: number[]
   y: (d: number) => number
-  labels: (string | number)[]
+  labels: (string | number | undefined)[]
   left?: boolean
   right?: boolean
   padding: number
@@ -188,8 +212,8 @@ const TickLabels = ({
   }
 
   let labels: {
-    horizontal: (string | number)[]
-    vertical: (string | number)[]
+    horizontal: (string | number | undefined)[]
+    vertical: (string | number | undefined)[]
   }
 
   if (format) {

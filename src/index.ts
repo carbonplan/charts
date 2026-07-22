@@ -8,6 +8,7 @@ export {
   useChart,
   type ChartProps,
   type ChartContextValue,
+  type ScaleFn,
 } from './chart'
 export { default as Circle, type CircleProps } from './circle'
 export { default as Donut, type DonutProps } from './donut'

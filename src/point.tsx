@@ -3,14 +3,47 @@ import { Box, BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import useChartPadding from './utils/use-chart-padding'
 
-export interface PointProps extends BoxProps {
+export type HorizontalAlign = 'left' | 'right' | 'center'
+export type VerticalAlign = 'top' | 'middle' | 'bottom'
+
+/**
+ * Encodes the runtime rule that centering needs a size: `align: 'center'`
+ * requires `width`, and `verticalAlign: 'middle'` requires `height`. Intersect
+ * with a component's base props.
+ */
+export type AlignmentConstraint = (
+  | { align?: 'left' | 'right' }
+  | { align: 'center'; width: number }
+) &
+  (
+    | { verticalAlign?: 'top' | 'bottom' }
+    | { verticalAlign: 'middle'; height: number }
+  )
+
+interface PointBaseProps extends BoxProps {
+  /** X coordinate in data space where the content is anchored. */
   x: number
+  /** Y coordinate in data space where the content is anchored. */
   y: number
-  align?: 'left' | 'right' | 'center'
-  verticalAlign?: 'top' | 'middle' | 'bottom'
+  /** Horizontal anchor relative to (x, y). Defaults to `'left'`. */
+  align?: HorizontalAlign
+  /** Vertical anchor relative to (x, y). Defaults to `'top'`. */
+  verticalAlign?: VerticalAlign
+  /** Width in data units. Required when `align` is `'center'`. */
   width?: number
+  /** Height in data units. Required when `verticalAlign` is `'middle'`. */
   height?: number
 }
+
+/**
+ * Positions arbitrary content at a point in data space.
+ *
+ * `width` is required when `align` is `'center'`; `height` is required when
+ * `verticalAlign` is `'middle'`.
+ * @example
+ * <Point x={50} y={50} align='center' width={10}>...</Point>
+ */
+export type PointProps = PointBaseProps & AlignmentConstraint
 
 const Point = ({
   x,

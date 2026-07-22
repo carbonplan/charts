@@ -4,11 +4,23 @@ import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
 import useChartPadding from './utils/use-chart-padding'
 
+/** Background grid lines at tick positions. */
 export interface GridProps extends BoxProps {
+  /** Draw horizontal grid lines (at y ticks). */
   horizontal?: boolean
+  /** Draw vertical grid lines (at x ticks). */
   vertical?: boolean
+  /**
+   * Approximate number of grid lines per axis. Ignored when `values` is set.
+   * Defaults to `5`.
+   */
   count?: number
-  values?: number[]
+  /**
+   * Explicit grid line positions in data space. Overrides `count`. Pass `null`
+   * to fall back to automatically generated positions.
+   * @example values={[0, 25, 50, 75, 100]}
+   */
+  values?: number[] | null
 }
 
 const styles = {

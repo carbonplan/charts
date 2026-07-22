@@ -3,7 +3,7 @@ var e10 = Math.sqrt(50),
   e2 = Math.sqrt(2)
 
 interface GetTicksParams {
-  values?: number[]
+  values?: number[] | null
   countx: number
   county: number
   logx: boolean
