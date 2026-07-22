@@ -29,10 +29,28 @@ interface LabelBaseProps extends Omit<BoxProps, 'height'> {
  */
 export type LabelProps = LabelBaseProps & AlignmentConstraint
 
-const Label = (props: LabelProps) => {
-  const { x, y, children, sx, ...rest } = props
+const Label = ({
+  x,
+  y,
+  children,
+  align,
+  verticalAlign,
+  width,
+  height,
+  sx,
+  ...props
+}: LabelProps) => {
+  // align/width (and verticalAlign/height) are correlated; forward them as a
+  // unit so the cast doesn't lose the constraint Point enforces at runtime.
+  const alignment = {
+    align,
+    verticalAlign,
+    width,
+    height,
+  } as AlignmentConstraint
+
   return (
-    <Point x={x} y={y} {...rest}>
+    <Point x={x} y={y} {...alignment}>
       <Box
         sx={{
           fontFamily: 'mono',
@@ -40,9 +58,10 @@ const Label = (props: LabelProps) => {
           textTransform: 'uppercase',
           fontSize: [0, 0, 0, 1],
           color: 'secondary',
-          textAlign: props.align,
+          textAlign: align,
           ...sx,
         }}
+        {...props}
       >
         {children}
       </Box>
