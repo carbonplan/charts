@@ -4,9 +4,20 @@ import { useChart } from './chart'
 import { PathBox } from './svg'
 import { Datum } from './types'
 
+/** A cloud of point markers. */
 export interface ScatterProps extends Omit<BoxProps, 'color'> {
+  /**
+   * One marker per point, in `[x, y]` form.
+   * @example data={[[100, 50], [0, 100], [25, 60]]}
+   */
   data: Datum[]
+  /**
+   * Marker color: a theme-ui color key or any CSS color. Defaults to
+   * `'primary'`.
+   * @example color='secondary'
+   */
   color?: string
+  /** Marker diameter in pixels. Defaults to `10`. */
   size?: number
 }
 

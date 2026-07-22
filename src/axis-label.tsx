@@ -3,13 +3,24 @@ import { Box, BoxProps, Flex } from 'theme-ui'
 import Arrow from './arrow'
 import useChartPadding from './utils/use-chart-padding'
 
+/** A label with an optional arrow and units, placed along the left or bottom axis. */
 export interface AxisLabelProps extends BoxProps {
+  /** Render the label along the left (y) axis. */
   left?: boolean
+  /** Reserved: right-axis labels are not currently rendered. */
   right?: boolean
+  /** Reserved: top-axis labels are not currently rendered. */
   top?: boolean
+  /** Render the label along the bottom (x) axis. */
   bottom?: boolean
+  /**
+   * Secondary unit text shown after the label in a muted color.
+   * @example units='kg CO₂'
+   */
   units?: React.ReactNode
+  /** Show a directional arrow after the label. Defaults to `true`. */
   arrow?: boolean
+  /** Text alignment of the label along its axis. Defaults to `'right'`. */
   align?: 'left' | 'right' | 'center'
 }
 

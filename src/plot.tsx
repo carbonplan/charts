@@ -3,8 +3,14 @@ import { Box, BoxProps } from 'theme-ui'
 import { SvgBox } from './svg'
 import useChartPadding from './utils/use-chart-padding'
 
+/** The plotting surface inside a `Chart`; render data components (Line, Bar, …) as its children. */
 export interface PlotProps extends BoxProps {
+  /** Rendering mode. Only `'svg'` is currently supported. Defaults to `'svg'`. */
   mode?: 'svg'
+  /**
+   * Preserve a 1:1 aspect ratio instead of stretching to fill the container.
+   * Defaults to `false`.
+   */
   square?: boolean
 }
 

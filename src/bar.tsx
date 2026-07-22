@@ -4,10 +4,33 @@ import { useChart } from './chart'
 import { PathBox } from './svg'
 import { DataSeries } from './types'
 
+/** A set of bars, one per data point. */
 export interface BarProps extends Omit<BoxProps, 'color' | 'width'> {
+  /**
+   * One bar per point. Each point is `[x, y]` (bar from 0 to y) or
+   * `[x, y0, y1]` (floating bar between y0 and y1).
+   * @example
+   * data={[[0, 5], [1, 8], [2, 3]]}
+   * @example
+   * // floating bars between a lower and upper value
+   * data={[[0, 2, 5], [1, 3, 8]]}
+   */
   data: DataSeries
+  /**
+   * Bar thickness as a fraction of the spacing between adjacent bars, from 0 to
+   * 1. Defaults to `0.8`.
+   * @example width={0.5}
+   */
   width?: number
+  /** Orientation of the bars. Defaults to `'vertical'`. */
   direction?: 'vertical' | 'horizontal'
+  /**
+   * A single color for every bar, or one color per bar (array length must equal
+   * `data.length`). Each value is a theme-ui color key or CSS color. Defaults to
+   * `'primary'`.
+   * @example color='secondary'
+   * @example color={['red', 'orange', 'yellow']}
+   */
   color?: string | string[]
 }
 

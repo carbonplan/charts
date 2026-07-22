@@ -4,12 +4,37 @@ import { scaleLinear } from 'd3-scale'
 import { BoxProps } from 'theme-ui'
 import { PathBox } from './svg'
 
+/** A pie/donut where each value's share of the total sets its arc angle. */
 export interface DonutProps extends Omit<BoxProps, 'color'> {
+  /**
+   * One slice per value; each value's share of the total sets its arc angle.
+   * @example data={[10, 20, 30, 40]}
+   */
   data: number[]
+  /**
+   * Slice-index range mapped onto the opacity `range`. Defaults to
+   * `[0, data.length - 1]`.
+   */
   domain?: [number, number]
+  /**
+   * Opacity range `[min, max]` applied across slices. Defaults to `[0.3, 0.9]`.
+   */
   range?: [number, number]
+  /**
+   * Inner (hole) radius; the value is multiplied by 100 SVG units, so `0` makes
+   * a full pie. Defaults to `0.3` (→ 30 units).
+   */
   innerRadius?: number
+  /**
+   * Outer radius in SVG units. The plot spans 100×100 centered at its middle,
+   * so `50` reaches the edge. Defaults to `50`.
+   */
   outerRadius?: number
+  /**
+   * Fill color shared by all slices, which are distinguished by opacity.
+   * Defaults to `'primary'`.
+   * @example color='secondary'
+   */
   color?: string
 }
 

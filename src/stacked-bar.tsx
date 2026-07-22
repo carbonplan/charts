@@ -4,11 +4,41 @@ import { scaleLinear } from 'd3-scale'
 import Bar, { BarProps } from './bar'
 import { RangeDatum, StackedDatum } from './types'
 
+/** Bars split into stacked segments defined by consecutive y boundaries. */
 export interface StackedBarProps
   extends Omit<BarProps, 'data' | 'color' | 'width' | 'ref'> {
+  /**
+   * One row per bar. Each row is `[x, ...yBoundaries]` with two or more
+   * boundaries; consecutive boundaries become stacked segments.
+   * @example
+   * // x, then boundaries 0 -> 2 -> 5 -> 9 (three segments per bar)
+   * data={[[0, 0, 2, 5, 9], [1, 0, 3, 6, 10]]}
+   */
   data: StackedDatum[]
+  /**
+   * Segment colors, in one of three shapes:
+   * - `string` — one color for every segment, distinguished by opacity.
+   * - `string[]` — one color per segment (length = segments per bar).
+   * - `string[][]` — a color for each segment of each bar (outer length =
+   *   `data.length`, each inner length = segments per bar).
+   *
+   * Defaults to `'primary'`.
+   * @example color='purple'
+   * @example color={['pink', 'red', 'orange']}
+   * @example
+   * // fully custom: a color for every segment of every bar
+   * color={data.map((row) => row.slice(2).map(() => randomColor()))}
+   */
   color?: string | string[] | string[][]
+  /**
+   * Opacity range `[min, max]` applied across segments when `color` is a single
+   * string. Defaults to `[0.3, 0.9]`.
+   */
   range?: [number, number]
+  /**
+   * Bar thickness as a fraction of the spacing between adjacent bars (0–1).
+   * Defaults to `0.8`.
+   */
   width?: number
 }
 
