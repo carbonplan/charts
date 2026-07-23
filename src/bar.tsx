@@ -4,7 +4,7 @@ import { useChart } from './chart'
 import { PathBox } from './svg'
 import { DataSeries } from './types'
 
-/** A set of bars, one per data point. */
+/** Vertical or horizontal bars, one per data point. */
 export interface BarProps extends Omit<BoxProps, 'color' | 'width'> {
   /**
    * One bar per point. Each point is `[x, y]` (bar from 0 to y) or

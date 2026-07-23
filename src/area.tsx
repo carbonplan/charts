@@ -5,7 +5,7 @@ import { area, CurveFactory } from 'd3-shape'
 import { PathBox } from './svg'
 import { DataSeries } from './types'
 
-/** A filled area between a lower and upper bound across x. */
+/** A filled area between a lower and upper bound at each x. */
 export interface AreaProps extends Omit<BoxProps, 'color'> {
   /**
    * Points defining the filled area. Each point is either `[x, y]` (filled from

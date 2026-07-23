@@ -4,7 +4,7 @@ import { useChart } from './chart'
 import { PathBox } from './svg'
 import { Datum } from './types'
 
-/** A cloud of point markers. */
+/** Point markers, one per [x, y] data point. */
 export interface ScatterProps extends Omit<BoxProps, 'color'> {
   /**
    * One marker per point, in `[x, y]` form.
