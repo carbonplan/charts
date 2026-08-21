@@ -1,11 +1,10 @@
 import React, { memo, useMemo } from 'react'
-import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
-import { PathBox } from './svg'
+import { PathBox, PathBoxProps } from './svg'
 import { DataSeries } from './types'
 
 /** Vertical or horizontal bars, one per data point. */
-export interface BarProps extends Omit<BoxProps, 'color' | 'width'> {
+export interface BarProps extends Omit<PathBoxProps, 'color' | 'width' | 'd'> {
   /**
    * One bar per point. Each point is `[x, y]` (bar from 0 to y) or
    * `[x, y0, y1]` (floating bar between y0 and y1).
@@ -95,12 +94,12 @@ const Bar = ({
           <PathBox
             key={i}
             d={`M ${x} ${y} h ${barWidth} v ${height} h -${barWidth} Z`}
+            stroke='none'
+            {...props}
             sx={{
               fill: colorString,
-              stroke: 'none',
               ...sx,
             }}
-            {...props}
           />
         )
       })}

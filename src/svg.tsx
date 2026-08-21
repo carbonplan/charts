@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, BoxProps } from 'theme-ui'
 
-type PathBoxProps = BoxProps &
+export type PathBoxProps = BoxProps &
   Omit<React.SVGProps<SVGPathElement>, keyof BoxProps | 'd'> & {
     d?: string | null
   }

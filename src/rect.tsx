@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
-import { BoxProps } from 'theme-ui'
 import { useChart } from './chart'
-import { PathBox } from './svg'
+import { PathBox, PathBoxProps } from './svg'
 
 /** A filled rectangle spanning a range in x and y. */
-export interface RectProps extends Omit<BoxProps, 'color'> {
+export interface RectProps
+  extends Omit<PathBoxProps, 'color' | 'd' | 'x' | 'y'> {
   /**
    * Horizontal extent in data space, as `[x0, x1]`. Order does not matter.
    * @example x={[10, 40]}
@@ -37,12 +37,12 @@ const Rect = ({ x, y, color = 'primary', sx, ...props }: RectProps) => {
   return (
     <PathBox
       d={`M ${_x(sortedX[0])} ${_y(sortedY[1])} h ${h} v ${v} h -${h} Z`}
+      stroke='none'
+      {...props}
       sx={{
         fill: color,
-        stroke: 'none',
         ...sx,
       }}
-      {...props}
     />
   )
 }
