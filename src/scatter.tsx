@@ -4,8 +4,7 @@ import { useChart } from './chart'
 import { PathBox } from './svg'
 import { Datum } from './types'
 
-/** Point markers, one per data point. */
-export interface ScatterProps<T = Datum> extends Omit<BoxProps, 'color'> {
+interface ScatterCoreProps<T> extends Omit<BoxProps, 'color'> {
   /**
    * One marker per datum, in `[x, y]` form or any shape the `x` and `y`
    * accessors can read.
@@ -33,11 +32,23 @@ export interface ScatterProps<T = Datum> extends Omit<BoxProps, 'color'> {
   size?: number
 }
 
+type ScatterAccessorProps<T> = ScatterCoreProps<T> & {
+  x: (d: T) => number
+  y: (d: T) => number
+}
+
+/**
+ * Point markers, one per data point. The `x` and `y` accessors are optional
+ * for `[x, y]` tuple data and required for any other datum type, such as
+ * `{ x, y }` objects.
+ */
+export type ScatterProps<T = Datum> = [T] extends [Datum]
+  ? ScatterCoreProps<T>
+  : ScatterAccessorProps<T>
+
 interface ScatterComponent {
-  <T extends Datum>(props: ScatterProps<T>): React.ReactElement
-  <T>(
-    props: ScatterProps<T> & { x: (d: T) => number; y: (d: T) => number }
-  ): React.ReactElement
+  <T extends Datum>(props: ScatterCoreProps<T>): React.ReactElement
+  <T>(props: ScatterAccessorProps<T>): React.ReactElement
 }
 
 const Scatter = <T,>({
@@ -48,7 +59,7 @@ const Scatter = <T,>({
   size = 10,
   sx,
   ...props
-}: ScatterProps<T>) => {
+}: ScatterCoreProps<T>) => {
   const { x: _x, y: _y } = useChart()
 
   const xAccessor = x ?? ((d: T) => (d as Datum)[0])
