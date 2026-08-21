@@ -1,8 +1,26 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
+import { SvgBox } from './svg'
 import useChartPadding from './utils/use-chart-padding'
 
-const Plot = ({ children, sx, mode = 'svg', square = false, ...props }) => {
+/** The plotting surface inside a `Chart`; render data components (Line, Bar, …) as its children. */
+export interface PlotProps extends BoxProps {
+  /** Rendering mode. Only `'svg'` is currently supported. Defaults to `'svg'`. */
+  mode?: 'svg'
+  /**
+   * Preserve a 1:1 aspect ratio instead of stretching to fill the container.
+   * Defaults to `false`.
+   */
+  square?: boolean
+}
+
+const Plot = ({
+  children,
+  sx,
+  mode = 'svg',
+  square = false,
+  ...props
+}: PlotProps) => {
   const responsiveSx = useChartPadding(
     ({ apt, pt, pb, apb, apl, pl, pr, apr }) => ({
       height: `calc(100% - ${apt + pt + pb + apb}px)`,
@@ -21,8 +39,7 @@ const Plot = ({ children, sx, mode = 'svg', square = false, ...props }) => {
       }}
     >
       {mode === 'svg' && (
-        <Box
-          as='svg'
+        <SvgBox
           height='100%'
           viewBox='0 0 100 100'
           width='100%'
@@ -34,7 +51,7 @@ const Plot = ({ children, sx, mode = 'svg', square = false, ...props }) => {
           {...props}
         >
           {children}
-        </Box>
+        </SvgBox>
       )}
     </Box>
   )

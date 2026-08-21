@@ -3,11 +3,14 @@
   "version": "3.1.1",
   "description": "themeable reusable responsive web charts",
   "main": "dst/index.js",
-  "module": "dst/index.esm.js",
+  "types": "dst/index.d.ts",
+  "module": "dst/index.mjs",
   "scripts": {
-    "build": "rimraf dst && microbundle --no-compress --jsx React.createElement -f modern,es,cjs --jsxFragment React.Fragment",
-    "watch": "microbundle watch src/index.js -o dst/index.js --no-compress --jsx React.createElement -f modern,es,cjs --jsxFragment React.Fragment",
-    "format": "prettier --write README.md 'src/**/*.js'"
+    "clean": "rimraf dst",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "watch": "tsup --watch",
+    "format": "prettier --write README.md 'src/**/*.{ts,tsx}'"
   },
   "repository": {
     "type": "git",
@@ -36,9 +39,14 @@
   },
   "devDependencies": {
     "@carbonplan/prettier": "^1.2.0",
-    "microbundle": "^0.13.0",
+    "@types/d3-scale": "^3.3.5",
+    "@types/d3-shape": "^2.1.7",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
     "prettier": "2.5.1",
-    "rimraf": "2.6.3"
+    "rimraf": "2.6.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "d3-scale": "^3.3.0",

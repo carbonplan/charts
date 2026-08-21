@@ -1,17 +1,29 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
 import useChartPadding from './utils/use-chart-padding'
+
+/** Solid axis lines drawn on any combination of the four sides. */
+export interface AxisProps extends BoxProps {
+  /** Draw the left (y) axis line. */
+  left?: boolean
+  /** Draw the right (y) axis line. */
+  right?: boolean
+  /** Draw the top (x) axis line. */
+  top?: boolean
+  /** Draw the bottom (x) axis line. */
+  bottom?: boolean
+}
 
 const styles = {
   axis: {
-    position: 'absolute',
+    position: 'absolute' as const,
     borderStyle: 'solid',
     borderColor: 'secondary',
     borderWidth: '0px',
   },
 }
 
-const Axis = ({ left, right, top, bottom, sx, ...props }) => {
+const Axis = ({ left, right, top, bottom, sx, ...props }: AxisProps) => {
   const leftSx = useChartPadding(({ apt, pt, pb, apb, pl }) => ({
     height: `calc(100% - ${apt + pt + pb + apb}px)`,
     left: `${pl}px`,

@@ -2,21 +2,26 @@ var e10 = Math.sqrt(50),
   e5 = Math.sqrt(10),
   e2 = Math.sqrt(2)
 
+interface GetTicksParams {
+  values?: number[] | null
+  countx: number
+  county: number
+  logx: boolean
+  logy: boolean
+  x: { domain(): number[] }
+  y: { domain(): number[] }
+}
+
 export default function getTicks({
   values,
-  horizontal,
-  vertical,
-  count,
   countx,
   county,
   logx,
   logy,
   x,
   y,
-}) {
-  countx = countx || count
-  county = county || count
-  let verticalValues, horizontalValues
+}: GetTicksParams): { horizontal: number[]; vertical: number[] } {
+  let verticalValues: number[], horizontalValues: number[]
 
   const verticalGenerator = logx ? logTicks : ticks
   const horizontalGenerator = logy ? logTicks : ticks
@@ -34,24 +39,28 @@ export default function getTicks({
   }
 }
 
-function logTicks(start, stop, count) {
+function logTicks(start: number, stop: number, count: number): number[] {
   var base = 10
   var logs = logp(base)
   var pows = powp(base)
 
   var u = start,
     v = stop,
-    r
+    r: boolean
 
-  if ((r = v < u)) (i = u), (u = v), (v = i)
+  if ((r = v < u)) {
+    var temp = u
+    u = v
+    v = temp
+  }
 
   var i = logs(u),
     j = logs(v),
-    p,
-    k,
-    t,
+    p: number,
+    k: number,
+    t: number,
     n = count == null ? 10 : +count,
-    z = []
+    z: number[] = []
 
   if (!(base % 1) && j - i < n) {
     ;(i = Math.floor(i)), (j = Math.ceil(j))
@@ -81,37 +90,37 @@ function logTicks(start, stop, count) {
   return r ? z.reverse() : z
 }
 
-function logp(base) {
+function logp(base: number): (x: number) => number {
   return base === Math.E
     ? Math.log
     : (base === 10 && Math.log10) ||
         (base === 2 && Math.log2) ||
         ((base = Math.log(base)),
-        function (x) {
+        function (x: number) {
           return Math.log(x) / base
         })
 }
 
-function powp(base) {
+function powp(base: number): (x: number) => number {
   return base === 10
     ? pow10
     : base === Math.E
     ? Math.exp
-    : function (x) {
+    : function (x: number) {
         return Math.pow(base, x)
       }
 }
 
-function pow10(x) {
+function pow10(x: number): number {
   return isFinite(x) ? +('1e' + x) : x < 0 ? 0 : x
 }
 
-function ticks(start, stop, count) {
-  var reverse,
+function ticks(start: number, stop: number, count: number): number[] {
+  var reverse: boolean,
     i = -1,
-    n,
-    ticks,
-    step
+    n: number,
+    ticks: number[],
+    step: number
   ;(stop = +stop), (start = +start), (count = +count)
   if (start === stop && count > 0) return [start]
   if ((reverse = stop < start)) (n = start), (start = stop), (stop = n)
@@ -140,7 +149,7 @@ function ticks(start, stop, count) {
   return ticks
 }
 
-function tickIncrement(start, stop, count) {
+function tickIncrement(start: number, stop: number, count: number): number {
   var step = (stop - start) / Math.max(0, count),
     power = Math.floor(Math.log(step) / Math.LN10),
     error = step / Math.pow(10, power)
@@ -149,14 +158,4 @@ function tickIncrement(start, stop, count) {
         Math.pow(10, power)
     : -Math.pow(10, -power) /
         (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1)
-}
-
-function tickStep(start, stop, count) {
-  var step0 = Math.abs(stop - start) / Math.max(0, count),
-    step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
-    error = step0 / step1
-  if (error >= e10) step1 *= 10
-  else if (error >= e5) step1 *= 5
-  else if (error >= e2) step1 *= 2
-  return stop < start ? -step1 : step1
 }

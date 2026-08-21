@@ -1,18 +1,63 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, BoxProps } from 'theme-ui'
 import { useChart } from './chart'
 import getTicks from './utils/get-ticks'
 import useChartPadding from './utils/use-chart-padding'
 
+/** Text labels for tick positions along any combination of the four sides. */
+export interface TickLabelsProps extends BoxProps {
+  /** Label ticks along the left (y) axis. */
+  left?: boolean
+  /** Label ticks along the right (y) axis. */
+  right?: boolean
+  /** Label ticks along the top (x) axis. */
+  top?: boolean
+  /** Label ticks along the bottom (x) axis. */
+  bottom?: boolean
+  /**
+   * Approximate number of labels. Ignored when `values` is set. Defaults to `5`
+   * (or `2` on log axes).
+   */
+  count?: number
+  /**
+   * Explicit tick positions to label, in data space. Pass `null` to fall back
+   * to automatically generated positions.
+   * @example values={[0, 50, 100]}
+   */
+  values?: number[] | null
+  /**
+   * Explicit label text, one per tick. Length must match the number of ticks.
+   * @example labels={['low', 'mid', 'high']}
+   */
+  labels?: (string | number)[]
+  /**
+   * Format each tick value into its displayed label. Returning `undefined`
+   * omits that tick's label.
+   * @example format={(d) => `$${d}`}
+   */
+  format?: (d: number) => string | number | undefined
+  /** Gap in pixels between the label and the axis. Defaults to `8`. */
+  padding?: number
+}
+
 const styles = {
   tick: {
-    position: 'absolute',
+    position: 'absolute' as const,
     fontSize: [0, 0, 0, 1],
     fontFamily: 'mono',
     letterSpacing: 'mono',
     color: 'secondary',
-    userSelect: 'none',
+    userSelect: 'none' as const,
   },
+}
+
+interface VerticalTickLabelsInternalProps extends Pick<BoxProps, 'sx'> {
+  values: number[]
+  x: (d: number) => number
+  labels: (string | number | undefined)[]
+  top?: boolean
+  bottom?: boolean
+  padding: number
 }
 
 const VerticalTickLabels = ({
@@ -23,8 +68,8 @@ const VerticalTickLabels = ({
   bottom,
   padding,
   sx,
-}) => {
-  let position
+}: VerticalTickLabelsInternalProps) => {
+  let position: Record<string, string | string[]> | undefined
   if (top)
     position = {
       bottom: [
@@ -57,6 +102,15 @@ const VerticalTickLabels = ({
   })
 }
 
+interface HorizontalTickLabelsInternalProps extends Pick<BoxProps, 'sx'> {
+  values: number[]
+  y: (d: number) => number
+  labels: (string | number | undefined)[]
+  left?: boolean
+  right?: boolean
+  padding: number
+}
+
 const HorizontalTickLabels = ({
   values,
   y,
@@ -65,8 +119,8 @@ const HorizontalTickLabels = ({
   right,
   padding,
   sx,
-}) => {
-  let position
+}: HorizontalTickLabelsInternalProps) => {
+  let position: Record<string, string> | undefined
   if (left) position = { right: `${padding + 4}px` }
   if (right) position = { left: `${padding + 4}px` }
   return values.map((d, i) => {
@@ -95,12 +149,12 @@ const TickLabels = ({
   top,
   bottom,
   count,
-  values,
-  labels,
+  values: valuesProp,
+  labels: labelsProp,
   format,
   padding = 8,
   sx,
-}) => {
+}: TickLabelsProps) => {
   const { x, y, logx, logy } = useChart()
   const leftSx = useChartPadding(({ apt, pt, pb, apb, pl }) => ({
     top: `${apt + pt}px`,
@@ -127,18 +181,39 @@ const TickLabels = ({
   const countx = count == null ? (logx ? 2 : 5) : count
   const county = count == null ? (logy ? 2 : 5) : count
 
-  values = getTicks({ values, count, countx, county, logx, logy, x, y })
+  const values = getTicks({
+    values: valuesProp,
+    countx,
+    county,
+    logx,
+    logy,
+    x,
+    y,
+  })
 
-  if ((left || right) && labels && labels.length !== values.horizontal.length) {
+  if (
+    (left || right) &&
+    labelsProp &&
+    labelsProp.length !== values.horizontal.length
+  ) {
     throw Error(
-      `when specfiying labels directly the number of labels must match the number of ticks, got ${labels.length} labels for ${values.horizontal.length} values`
+      `when specfiying labels directly the number of labels must match the number of ticks, got ${labelsProp.length} labels for ${values.horizontal.length} values`
     )
   }
 
-  if ((top || bottom) && labels && labels.length !== values.vertical.length) {
+  if (
+    (top || bottom) &&
+    labelsProp &&
+    labelsProp.length !== values.vertical.length
+  ) {
     throw Error(
-      `when specfiying labels directly the number of labels must match the number of ticks, got ${labels.length} labels for ${values.vertical.length} values`
+      `when specfiying labels directly the number of labels must match the number of ticks, got ${labelsProp.length} labels for ${values.vertical.length} values`
     )
+  }
+
+  let labels: {
+    horizontal: (string | number | undefined)[]
+    vertical: (string | number | undefined)[]
   }
 
   if (format) {
@@ -147,8 +222,8 @@ const TickLabels = ({
       vertical: values.vertical.map((d) => format(d)),
     }
   } else {
-    labels = labels
-      ? { vertical: labels, horizontal: labels }
+    labels = labelsProp
+      ? { vertical: labelsProp, horizontal: labelsProp }
       : { vertical: values.vertical, horizontal: values.horizontal }
   }
 
